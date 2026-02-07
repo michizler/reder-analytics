@@ -4,7 +4,7 @@
 
 **Predicting and Preventing Customer Attrition with Machine Learning**
 
-*A proof-of-concept solution for Reder Telecommunications*
+_A proof-of-concept solution for Reder Telecommunications_
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.4+-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
@@ -55,14 +55,14 @@ The business objective: **reduce churn by 10% within 12 months** by shifting fro
 
 ## Business Context
 
-| Detail | Value |
-|--------|-------|
-| **Company** | Reder Telecommunications |
-| **Headquarters** | Oslo, Norway |
-| **Founded** | 2005 |
-| **Services** | Internet (broadband/fiber) and mobile (voice/data) |
-| **Customer Base** | 2,000+ active subscribers |
-| **Current Churn Rate** | ~15% annually (increasing) |
+| Detail                 | Value                                              |
+| ---------------------- | -------------------------------------------------- |
+| **Company**            | Reder Telecommunications                           |
+| **Headquarters**       | Oslo, Norway                                       |
+| **Founded**            | 2005                                               |
+| **Services**           | Internet (broadband/fiber) and mobile (voice/data) |
+| **Customer Base**      | 2,000+ active subscribers                          |
+| **Current Churn Rate** | ~15% annually (increasing)                         |
 
 Reder operates in a competitive Scandinavian telecom market where customers have multiple alternatives and switching costs are low. The company needed a way to move beyond aggregate reporting and understand churn at the individual customer level.
 
@@ -82,12 +82,12 @@ Three external drivers are accelerating customer departure:
 
 These external pressures are compounded by four internal obstacles:
 
-| Obstacle | Description |
-|----------|-------------|
-| **Limited Customer Insight** | Only aggregate churn rates were tracked — no per-segment or per-customer analytics existed. |
-| **Pricing Inconsistencies** | Customers with similar usage patterns were on different plans, creating perceptions of unfairness. |
-| **Network Quality Gaps** | No predictive monitoring system was in place to anticipate or address outages before impact. |
-| **Reactive Retention** | Interventions only occurred after a customer signaled intent to leave — by which point recovery rates are low. |
+| Obstacle                     | Description                                                                                                    |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Limited Customer Insight** | Only aggregate churn rates were tracked — no per-segment or per-customer analytics existed.                    |
+| **Pricing Inconsistencies**  | Customers with similar usage patterns were on different plans, creating perceptions of unfairness.             |
+| **Network Quality Gaps**     | No predictive monitoring system was in place to anticipate or address outages before impact.                   |
+| **Reactive Retention**       | Interventions only occurred after a customer signaled intent to leave — by which point recovery rates are low. |
 
 The core problem: **Reder was losing customers it could have saved, because it didn't know who was at risk until it was too late.**
 
@@ -149,15 +149,15 @@ reder-analytics/
 
 The raw dataset (`Dataset.xlsx - Sheet1.csv`) contains **2,000+ customer records** with the following attributes:
 
-| Category | Fields |
-|----------|--------|
-| **Identity** | CustomerID, Name, Age, Gender |
-| **Contact** | Email, Phone, Address, Location |
-| **Account** | Segment, SubscriptionDetails, PurchaseHistory |
-| **Behavior** | ServiceInteractions, WebsiteUsage, ClickstreamData |
-| **Financial** | PaymentHistory |
+| Category       | Fields                                                   |
+| -------------- | -------------------------------------------------------- |
+| **Identity**   | CustomerID, Name, Age, Gender                            |
+| **Contact**    | Email, Phone, Address, Location                          |
+| **Account**    | Segment, SubscriptionDetails, PurchaseHistory            |
+| **Behavior**   | ServiceInteractions, WebsiteUsage, ClickstreamData       |
+| **Financial**  | PaymentHistory                                           |
 | **Engagement** | EngagementMetrics, Feedback, NPS, MarketingCommunication |
-| **Target** | ChurnLabel (binary: 0 = retained, 1 = churned) |
+| **Target**     | ChurnLabel (binary: 0 = retained, 1 = churned)           |
 
 **Key challenge:** Nine of these columns violate first normal form (1NF) — they store nested JSON structures (lists of dictionaries or single dictionaries) as string literals within cells. This required a multi-step normalization process before any analysis could begin.
 
@@ -259,10 +259,10 @@ This produces three customer tiers — **risk** (low engagement, high recency), 
 
 Different encoding approaches were applied based on the nature of each categorical variable:
 
-| Variable Type | Method | Columns |
-|---------------|--------|---------|
-| **Nominal** (no order) | OneHotEncoder | `Gender`, `Segment`, `nps_category` |
-| **Ordinal** (natural order) | LabelEncoder | `age_group`, `customer_segment` |
+| Variable Type                   | Method          | Columns                                          |
+| ------------------------------- | --------------- | ------------------------------------------------ |
+| **Nominal** (no order)          | OneHotEncoder   | `Gender`, `Segment`, `nps_category`              |
+| **Ordinal** (natural order)     | LabelEncoder    | `age_group`, `customer_segment`                  |
 | **Cardinal** (high cardinality) | Target Encoding | `Plan` (mean of `total_purchase_value` per plan) |
 
 ```python
@@ -310,18 +310,18 @@ mi_scores_sorted = mi_scores_df.sort_values('Scores', ascending=False).iloc[:20]
 
 **Top 10 features by mutual information score:**
 
-| Rank | Feature | MI Score |
-|------|---------|----------|
-| 1 | `late_payment_rate` | Highest |
-| 2 | `payment_risk_score` | Very High |
-| 3 | `total_late_payments` | Very High |
-| 4 | `total_interactions` | High |
-| 5 | `TimeSpent(minutes)` | High |
-| 6 | `NPS` | Moderate–High |
-| 7 | `engagement_intensity` | Moderate |
-| 8 | `engagement_ratio` | Moderate |
-| 9 | `nps_category_Detractor` | Moderate |
-| 10 | `nps_category_Passive` | Moderate |
+| Rank | Feature                  | MI Score      |
+| ---- | ------------------------ | ------------- |
+| 1    | `late_payment_rate`      | Highest       |
+| 2    | `payment_risk_score`     | Very High     |
+| 3    | `total_late_payments`    | Very High     |
+| 4    | `total_interactions`     | High          |
+| 5    | `TimeSpent(minutes)`     | High          |
+| 6    | `NPS`                    | Moderate–High |
+| 7    | `engagement_intensity`   | Moderate      |
+| 8    | `engagement_ratio`       | Moderate      |
+| 9    | `nps_category_Detractor` | Moderate      |
+| 10   | `nps_category_Passive`   | Moderate      |
 
 **Key insight:** Payment behavior features dominate the top three positions, confirming that late payments and financial risk are the strongest individual predictors of churn. Engagement and NPS features provide complementary signal.
 
@@ -372,30 +372,30 @@ random_search.fit(X_train, y_train)
 
 **Best parameters found:**
 
-| Parameter | Value |
-|-----------|-------|
-| `criterion` | `log_loss` |
-| `splitter` | `random` |
-| `max_depth` | `300` |
-| `min_samples_split` | `6` |
-| `min_samples_leaf` | `4` |
-| `max_features` | `log2` |
+| Parameter           | Value      |
+| ------------------- | ---------- |
+| `criterion`         | `log_loss` |
+| `splitter`          | `random`   |
+| `max_depth`         | `300`      |
+| `min_samples_split` | `6`        |
+| `min_samples_leaf`  | `4`        |
+| `max_features`      | `log2`     |
 
 ### Evaluation Results
 
-| Metric | Score |
-|--------|-------|
-| **Accuracy** | 96.9% |
-| **Precision** | ~97% |
-| **Recall** | ~97% |
-| **F1-Score** | ~97% |
+| Metric        | Score |
+| ------------- | ----- |
+| **Accuracy**  | 96.9% |
+| **Precision** | ~97%  |
+| **Recall**    | ~97%  |
+| **F1-Score**  | ~97%  |
 
 **Confusion matrix** (on 2,497 test samples):
 
-|  | Predicted: No Churn | Predicted: Churn |
-|--|---------------------|------------------|
-| **Actual: No Churn** | 1,226 (TN) | 38 (FP) |
-| **Actual: Churn** | 36 (FN) | 1,197 (TP) |
+|                      | Predicted: No Churn | Predicted: Churn |
+| -------------------- | ------------------- | ---------------- |
+| **Actual: No Churn** | 1,226 (TN)          | 38 (FP)          |
+| **Actual: Churn**    | 36 (FN)             | 1,197 (TP)       |
 
 The model correctly identifies 97% of actual churners (recall) while maintaining 97% precision — meaning very few false alarms. This balance is critical for retention programs, where both missed opportunities (false negatives) and wasted outreach (false positives) carry costs.
 
@@ -518,23 +518,23 @@ Then open `http://localhost:5173` in your browser. Navigate with arrow keys or t
 
 For production deployment of this lightweight FastAPI + Decision Tree solution (CPU-only inference, no GPU required), the following monthly cost estimates apply:
 
-| Component | AWS | Azure | GCP |
-|-----------|-----|-------|-----|
-| Compute | EC2 t3.medium: $30–34 | App Service B1: $13–35 | Cloud Run (0.5 vCPU): $8–18 |
-| Alternative Compute | ECS Fargate: $18–25 | Container Instance: $15–22 | Compute Engine e2-medium: $25–30 |
-| Storage | S3: $1–3 | Blob Storage: $1–3 | Cloud Storage: $1–2 |
-| Monitoring | CloudWatch: $5–10 | Azure Monitor: $5–8 | Cloud Monitoring: $0–5 |
-| Load Balancer | ELB: $18–22 | App Gateway: $20–25 | Cloud LB: $18–20 |
-| Data Transfer (10 GB) | $1–2 | $1–2 | $1–2 |
-| **Estimated Total** | **$55–95/mo** | **$45–90/mo** | **$30–75/mo** |
+| Component             | AWS                   | Azure                      | GCP                              |
+| --------------------- | --------------------- | -------------------------- | -------------------------------- |
+| Compute               | EC2 t3.medium: $30–34 | App Service B1: $13–35     | Cloud Run (0.5 vCPU): $8–18      |
+| Alternative Compute   | ECS Fargate: $18–25   | Container Instance: $15–22 | Compute Engine e2-medium: $25–30 |
+| Storage               | S3: $1–3              | Blob Storage: $1–3         | Cloud Storage: $1–2              |
+| Monitoring            | CloudWatch: $5–10     | Azure Monitor: $5–8        | Cloud Monitoring: $0–5           |
+| Load Balancer         | ELB: $18–22           | App Gateway: $20–25        | Cloud LB: $18–20                 |
+| Data Transfer (10 GB) | $1–2                  | $1–2                       | $1–2                             |
+| **Estimated Total**   | **$55–95/mo**         | **$45–90/mo**              | **$30–75/mo**                    |
 
 **Provider comparison:**
 
-| | AWS | Azure | GCP |
-|---|-----|-------|-----|
-| **Best for** | Broadest ecosystem, mature ML tooling | Microsoft/enterprise integration, hybrid benefit | Container-native workloads, pay-per-request |
-| **Strengths** | Largest community, most regions, SageMaker | Hybrid Benefit saves up to 40%, strong compliance | Cloud Run scales to zero, automatic sustained-use discounts |
-| **Trade-offs** | Complex pricing, egress fees compound | SKU complexity, less intuitive console | Smaller enterprise footprint, fewer regions |
+|                | AWS                                        | Azure                                             | GCP                                                         |
+| -------------- | ------------------------------------------ | ------------------------------------------------- | ----------------------------------------------------------- |
+| **Best for**   | Broadest ecosystem, mature ML tooling      | Microsoft/enterprise integration, hybrid benefit  | Container-native workloads, pay-per-request                 |
+| **Strengths**  | Largest community, most regions, SageMaker | Hybrid Benefit saves up to 40%, strong compliance | Cloud Run scales to zero, automatic sustained-use discounts |
+| **Trade-offs** | Complex pricing, egress fees compound      | SKU complexity, less intuitive console            | Smaller enterprise footprint, fewer regions                 |
 
 **Recommendation:** For this POC, **GCP Cloud Run** offers the lowest cost with pay-per-request scaling. For enterprise environments with existing Microsoft infrastructure, **Azure App Service** integrates naturally. For maximum flexibility and ecosystem breadth, **AWS ECS Fargate** provides the best balance.
 
@@ -542,11 +542,11 @@ For production deployment of this lightweight FastAPI + Decision Tree solution (
 
 ## Roadmap
 
-| Phase | Timeline | Focus | Key Activities |
-|-------|----------|-------|----------------|
-| **1 — Validation** | Month 1–2 | Prove the model works with live data | Validate predictions against real outcomes, A/B test retention interventions, refine feature engineering, obtain stakeholder sign-off |
-| **2 — Integration** | Month 3–5 | Connect into existing systems | Integrate API with CRM, build monitoring layer, automate data ingestion pipelines, establish model retraining schedule |
-| **3 — Scale** | Month 6–12 | Full production and expansion | Deploy to production, enable real-time scoring at scale, expand to upsell/cross-sell predictions, measure KPI outcomes against baseline |
+| Phase               | Timeline   | Focus                                | Key Activities                                                                                                                          |
+| ------------------- | ---------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **1 — Validation**  | Month 1–2  | Prove the model works with live data | Validate predictions against real outcomes, A/B test retention interventions, refine feature engineering, obtain stakeholder sign-off   |
+| **2 — Integration** | Month 3–5  | Connect into existing systems        | Integrate API with CRM, build monitoring layer, automate data ingestion pipelines, establish model retraining schedule                  |
+| **3 — Scale**       | Month 6–12 | Full production and expansion        | Deploy to production, enable real-time scoring at scale, expand to upsell/cross-sell predictions, measure KPI outcomes against baseline |
 
 **Long-term vision:** Evolve from a single-purpose churn predictor into a comprehensive **customer intelligence platform** — combining churn prediction, upsell scoring, and lifetime value optimization into a unified decision engine.
 
@@ -595,17 +595,17 @@ npm run dev
 
 ## Tech Stack
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Data Processing** | Python, Pandas, NumPy | Data ingestion, cleaning, transformation |
-| **Notebooks** | Jupyter | Interactive development and documentation |
-| **Machine Learning** | Scikit-learn | Feature selection, model training, evaluation |
-| **Feature Selection** | Mutual Information (`mutual_info_classif`) | Non-parametric feature ranking |
-| **Model Serialization** | Pickle, JSON | Model and feature persistence |
-| **API Framework** | FastAPI | REST endpoint with automatic OpenAPI docs |
-| **Schema Validation** | Pydantic | Request/response type safety |
-| **ASGI Server** | Uvicorn | High-performance async serving |
-| **Presentation** | React, Vite, Lucide Icons | Interactive slide deck |
+| Layer                   | Technology                                 | Purpose                                       |
+| ----------------------- | ------------------------------------------ | --------------------------------------------- |
+| **Data Processing**     | Python, Pandas, NumPy                      | Data ingestion, cleaning, transformation      |
+| **Notebooks**           | Jupyter                                    | Interactive development and documentation     |
+| **Machine Learning**    | Scikit-learn                               | Feature selection, model training, evaluation |
+| **Feature Selection**   | Mutual Information (`mutual_info_classif`) | Non-parametric feature ranking                |
+| **Model Serialization** | Pickle, JSON                               | Model and feature persistence                 |
+| **API Framework**       | FastAPI                                    | REST endpoint with automatic OpenAPI docs     |
+| **Schema Validation**   | Pydantic                                   | Request/response type safety                  |
+| **ASGI Server**         | Uvicorn                                    | High-performance async serving                |
+| **Presentation**        | React, Vite, Lucide Icons                  | Interactive slide deck                        |
 
 ---
 

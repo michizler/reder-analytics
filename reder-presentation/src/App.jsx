@@ -1,82 +1,2623 @@
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, TrendingDown, Target, Brain, Database, AlertTriangle, BarChart3, Users, DollarSign, Shield, Zap, Server, Code, Layers, CheckCircle, ArrowRight, Globe, Wifi, Phone, Settings, Activity, Cloud } from "lucide-react";
-const C = { navy: "#0B1D3A", deepBlue: "#102A52", teal: "#0891B2", cyan: "#22D3EE", mint: "#06B6D4", slate: "#1E3A5F", ls: "#2D4A6F", tp: "#F0F9FF", ts: "#94A3B8", tm: "#64748B", acc: "#F59E0B", wh: "#FFFFFF", cb: "rgba(16,42,82,0.6)", cbr: "rgba(8,145,178,0.25)", dng: "#EF4444", suc: "#10B981", pur: "#8B5CF6" };
-const fl = document.createElement("link"); fl.href = "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"; fl.rel = "stylesheet"; document.head.appendChild(fl);
-const Glow = ({ s, t, l, c, d = 0 }) => <div style={{ position: "absolute", top: t, left: l, width: s, height: s, borderRadius: "50%", background: `radial-gradient(circle,${c}20 0%,transparent 70%)`, filter: "blur(40px)", animation: `pg 6s ease-in-out ${d}s infinite alternate`, pointerEvents: "none" }} />;
-const Grid = () => <div style={{ position: "absolute", inset: 0, opacity: 0.03, pointerEvents: "none", backgroundImage: `linear-gradient(${C.teal} 1px,transparent 1px),linear-gradient(90deg,${C.teal} 1px,transparent 1px)`, backgroundSize: "60px 60px" }} />;
-const Cd = ({ children, style = {}, glow }) => <div style={{ background: C.cb, border: `1px solid ${C.cbr}`, borderRadius: 14, padding: "24px", backdropFilter: "blur(12px)", boxShadow: glow ? `0 0 30px ${C.teal}15` : "0 4px 20px rgba(0,0,0,0.2)", ...style }}>{children}</div>;
-const St = ({ icon: I, value, label, color = C.teal }) => <Cd style={{ textAlign: "center", padding: "22px 16px" }} glow><div style={{ width: 44, height: 44, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px", background: `${color}18` }}><I size={22} color={color} /></div><div style={{ fontSize: 32, fontWeight: 800, color, fontFamily: "Sora", lineHeight: 1.1 }}>{value}</div><div style={{ fontSize: 12, color: C.ts, marginTop: 5, fontFamily: "DM Sans" }}>{label}</div></Cd>;
-const IR = ({ icon: I, title, desc, color = C.teal }) => <div style={{ display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 16 }}><div style={{ minWidth: 38, height: 38, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", background: `${color}15`, border: `1px solid ${color}30`, flexShrink: 0 }}><I size={17} color={color} /></div><div><div style={{ fontSize: 14, fontWeight: 600, color: C.tp, fontFamily: "DM Sans", marginBottom: 2 }}>{title}</div><div style={{ fontSize: 12.5, color: C.ts, lineHeight: 1.55, fontFamily: "DM Sans" }}>{desc}</div></div></div>;
-const Tg = ({ text }) => <div style={{ display: "inline-block", fontSize: 10.5, fontWeight: 600, color: C.cyan, textTransform: "uppercase", letterSpacing: 2, fontFamily: "Sora", background: `${C.teal}15`, border: `1px solid ${C.teal}30`, padding: "5px 14px", borderRadius: 20, marginBottom: 14 }}>{text}</div>;
-const Ti = ({ children }) => <h2 style={{ fontSize: 32, fontWeight: 700, color: C.tp, fontFamily: "Sora", lineHeight: 1.2, marginBottom: 6 }}>{children}</h2>;
-const Sb = ({ children }) => <p style={{ fontSize: 14, color: C.ts, fontFamily: "DM Sans", lineHeight: 1.6, maxWidth: 680, marginBottom: 22 }}>{children}</p>;
-const Bg = ({ label, color = C.teal }) => <span style={{ display: "inline-block", padding: "5px 12px", borderRadius: 8, fontSize: 11, fontWeight: 600, fontFamily: "DM Sans", background: `${color}15`, border: `1px solid ${color}30`, color, marginRight: 6, marginBottom: 6 }}>{label}</span>;
-const CB = ({ children, style = {} }) => <div style={{ fontFamily: "JetBrains Mono,monospace", fontSize: 11, lineHeight: 1.75, padding: 14, background: C.navy, borderRadius: 8, border: `1px solid ${C.cbr}`, color: C.ts, overflowX: "auto", ...style }}>{children}</div>;
-const SI = ({ number, title, subtitle, icon: Icon, color = C.teal }) => () => (
-  <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%", textAlign: "center", position: "relative" }}>
-    <Glow s="350px" t="20%" l="55%" c={color} /><Glow s="200px" t="60%" l="10%" c={C.cyan} d={1.5} />
-    <div style={{ position: "relative", zIndex: 1 }}>
-      <div style={{ fontSize: 100, fontWeight: 800, fontFamily: "Sora", color: `${color}12`, lineHeight: 1, marginBottom: -20 }}>{number}</div>
-      <div style={{ width: 56, height: 56, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", background: `${color}18`, border: `1px solid ${color}35` }}><Icon size={28} color={color} /></div>
-      <h1 style={{ fontSize: 42, fontWeight: 800, fontFamily: "Sora", color: C.tp, marginBottom: 12 }}>{title}</h1>
-      <p style={{ fontSize: 16, color: C.ts, fontFamily: "DM Sans", maxWidth: 500, margin: "0 auto", lineHeight: 1.6 }}>{subtitle}</p>
+import {
+  ChevronLeft,
+  ChevronRight,
+  TrendingDown,
+  Target,
+  Brain,
+  Database,
+  AlertTriangle,
+  BarChart3,
+  Users,
+  DollarSign,
+  Shield,
+  Zap,
+  Server,
+  Code,
+  Layers,
+  CheckCircle,
+  ArrowRight,
+  Globe,
+  Wifi,
+  Phone,
+  Settings,
+  Activity,
+  Cloud,
+} from "lucide-react";
+const C = {
+  navy: "#0B1D3A",
+  deepBlue: "#102A52",
+  teal: "#0891B2",
+  cyan: "#22D3EE",
+  mint: "#06B6D4",
+  slate: "#1E3A5F",
+  ls: "#2D4A6F",
+  tp: "#F0F9FF",
+  ts: "#94A3B8",
+  tm: "#64748B",
+  acc: "#F59E0B",
+  wh: "#FFFFFF",
+  cb: "rgba(16,42,82,0.6)",
+  cbr: "rgba(8,145,178,0.25)",
+  dng: "#EF4444",
+  suc: "#10B981",
+  pur: "#8B5CF6",
+};
+const fl = document.createElement("link");
+fl.href =
+  "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap";
+fl.rel = "stylesheet";
+document.head.appendChild(fl);
+const Glow = ({ s, t, l, c, d = 0 }) => (
+  <div
+    style={{
+      position: "absolute",
+      top: t,
+      left: l,
+      width: s,
+      height: s,
+      borderRadius: "50%",
+      background: `radial-gradient(circle,${c}20 0%,transparent 70%)`,
+      filter: "blur(40px)",
+      animation: `pg 6s ease-in-out ${d}s infinite alternate`,
+      pointerEvents: "none",
+    }}
+  />
+);
+const Grid = () => (
+  <div
+    style={{
+      position: "absolute",
+      inset: 0,
+      opacity: 0.03,
+      pointerEvents: "none",
+      backgroundImage: `linear-gradient(${C.teal} 1px,transparent 1px),linear-gradient(90deg,${C.teal} 1px,transparent 1px)`,
+      backgroundSize: "60px 60px",
+    }}
+  />
+);
+const Cd = ({ children, style = {}, glow }) => (
+  <div
+    style={{
+      background: C.cb,
+      border: `1px solid ${C.cbr}`,
+      borderRadius: 14,
+      padding: "24px",
+      backdropFilter: "blur(12px)",
+      boxShadow: glow ? `0 0 30px ${C.teal}15` : "0 4px 20px rgba(0,0,0,0.2)",
+      ...style,
+    }}
+  >
+    {children}
+  </div>
+);
+const St = ({ icon: I, value, label, color = C.teal }) => (
+  <Cd style={{ textAlign: "center", padding: "22px 16px" }} glow>
+    <div
+      style={{
+        width: 44,
+        height: 44,
+        borderRadius: 12,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "0 auto 12px",
+        background: `${color}18`,
+      }}
+    >
+      <I size={22} color={color} />
+    </div>
+    <div
+      style={{
+        fontSize: 32,
+        fontWeight: 800,
+        color,
+        fontFamily: "Sora",
+        lineHeight: 1.1,
+      }}
+    >
+      {value}
+    </div>
+    <div
+      style={{ fontSize: 12, color: C.ts, marginTop: 5, fontFamily: "DM Sans" }}
+    >
+      {label}
+    </div>
+  </Cd>
+);
+const IR = ({ icon: I, title, desc, color = C.teal }) => (
+  <div
+    style={{
+      display: "flex",
+      gap: 14,
+      alignItems: "flex-start",
+      marginBottom: 16,
+    }}
+  >
+    <div
+      style={{
+        minWidth: 38,
+        height: 38,
+        borderRadius: 10,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: `${color}15`,
+        border: `1px solid ${color}30`,
+        flexShrink: 0,
+      }}
+    >
+      <I size={17} color={color} />
+    </div>
+    <div>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 600,
+          color: C.tp,
+          fontFamily: "DM Sans",
+          marginBottom: 2,
+        }}
+      >
+        {title}
+      </div>
+      <div
+        style={{
+          fontSize: 12.5,
+          color: C.ts,
+          lineHeight: 1.55,
+          fontFamily: "DM Sans",
+        }}
+      >
+        {desc}
+      </div>
     </div>
   </div>
 );
+const Tg = ({ text }) => (
+  <div
+    style={{
+      display: "inline-block",
+      fontSize: 10.5,
+      fontWeight: 600,
+      color: C.cyan,
+      textTransform: "uppercase",
+      letterSpacing: 2,
+      fontFamily: "Sora",
+      background: `${C.teal}15`,
+      border: `1px solid ${C.teal}30`,
+      padding: "5px 14px",
+      borderRadius: 20,
+      marginBottom: 14,
+    }}
+  >
+    {text}
+  </div>
+);
+const Ti = ({ children }) => (
+  <h2
+    style={{
+      fontSize: 32,
+      fontWeight: 700,
+      color: C.tp,
+      fontFamily: "Sora",
+      lineHeight: 1.2,
+      marginBottom: 6,
+    }}
+  >
+    {children}
+  </h2>
+);
+const Sb = ({ children }) => (
+  <p
+    style={{
+      fontSize: 14,
+      color: C.ts,
+      fontFamily: "DM Sans",
+      lineHeight: 1.6,
+      maxWidth: 680,
+      marginBottom: 22,
+    }}
+  >
+    {children}
+  </p>
+);
+const Bg = ({ label, color = C.teal }) => (
+  <span
+    style={{
+      display: "inline-block",
+      padding: "5px 12px",
+      borderRadius: 8,
+      fontSize: 11,
+      fontWeight: 600,
+      fontFamily: "DM Sans",
+      background: `${color}15`,
+      border: `1px solid ${color}30`,
+      color,
+      marginRight: 6,
+      marginBottom: 6,
+    }}
+  >
+    {label}
+  </span>
+);
+const CB = ({ children, style = {} }) => (
+  <div
+    style={{
+      fontFamily: "JetBrains Mono,monospace",
+      fontSize: 11,
+      lineHeight: 1.75,
+      padding: 14,
+      background: C.navy,
+      borderRadius: 8,
+      border: `1px solid ${C.cbr}`,
+      color: C.ts,
+      overflowX: "auto",
+      ...style,
+    }}
+  >
+    {children}
+  </div>
+);
+const SI =
+  ({ number, title, subtitle, icon: Icon, color = C.teal }) =>
+  () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        textAlign: "center",
+        position: "relative",
+      }}
+    >
+      <Glow s="350px" t="20%" l="55%" c={color} />
+      <Glow s="200px" t="60%" l="10%" c={C.cyan} d={1.5} />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div
+          style={{
+            fontSize: 100,
+            fontWeight: 800,
+            fontFamily: "Sora",
+            color: `${color}12`,
+            lineHeight: 1,
+            marginBottom: -20,
+          }}
+        >
+          {number}
+        </div>
+        <div
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: 14,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 20px",
+            background: `${color}18`,
+            border: `1px solid ${color}35`,
+          }}
+        >
+          <Icon size={28} color={color} />
+        </div>
+        <h1
+          style={{
+            fontSize: 42,
+            fontWeight: 800,
+            fontFamily: "Sora",
+            color: C.tp,
+            marginBottom: 12,
+          }}
+        >
+          {title}
+        </h1>
+        <p
+          style={{
+            fontSize: 16,
+            color: C.ts,
+            fontFamily: "DM Sans",
+            maxWidth: 500,
+            margin: "0 auto",
+            lineHeight: 1.6,
+          }}
+        >
+          {subtitle}
+        </p>
+      </div>
+    </div>
+  );
 
 const slides = [
-  () => (<div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%", textAlign: "center", position: "relative" }}><Glow s="400px" t="-100px" l="60%" c={C.teal} /><Glow s="300px" t="50%" l="-5%" c={C.cyan} d={2} /><div style={{ position: "relative", zIndex: 1 }}><div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 28 }}><div style={{ width: 50, height: 50, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", background: `linear-gradient(135deg,${C.teal},${C.cyan})`, boxShadow: `0 0 30px ${C.teal}40` }}><Wifi size={25} color={C.wh} /></div><span style={{ fontSize: 18, fontWeight: 700, color: C.tp, fontFamily: "Sora", letterSpacing: 1 }}>REDER TELECOM</span></div><h1 style={{ fontSize: 48, fontWeight: 800, fontFamily: "Sora", lineHeight: 1.12, background: `linear-gradient(135deg,${C.wh} 0%,${C.cyan} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 18, maxWidth: 680 }}>Predicting Customer Attrition</h1><p style={{ fontSize: 16, color: C.ts, fontFamily: "DM Sans", maxWidth: 540, margin: "0 auto 30px", lineHeight: 1.6 }}>A data-driven proof of concept to identify and mitigate churn risks through machine learning and predictive analytics</p><div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>{[{ icon: Target, label: "10% Churn Reduction" }, { icon: Brain, label: "ML-Powered" }, { icon: Users, label: "2,000+ Customers" }].map((it, i) => <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 18px", borderRadius: 10, background: C.cb, border: `1px solid ${C.cbr}` }}><it.icon size={15} color={C.cyan} /><span style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans", fontWeight: 500 }}>{it.label}</span></div>)}</div></div></div>),
+  () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        textAlign: "center",
+        position: "relative",
+      }}
+    >
+      <Glow s="400px" t="-100px" l="60%" c={C.teal} />
+      <Glow s="300px" t="50%" l="-5%" c={C.cyan} d={2} />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 12,
+            marginBottom: 28,
+          }}
+        >
+          <div
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 14,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: `linear-gradient(135deg,${C.teal},${C.cyan})`,
+              boxShadow: `0 0 30px ${C.teal}40`,
+            }}
+          >
+            <Wifi size={25} color={C.wh} />
+          </div>
+          <span
+            style={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: C.tp,
+              fontFamily: "Sora",
+              letterSpacing: 1,
+            }}
+          >
+            REDER TELECOM
+          </span>
+        </div>
+        <h1
+          style={{
+            fontSize: 48,
+            fontWeight: 800,
+            fontFamily: "Sora",
+            lineHeight: 1.12,
+            background: `linear-gradient(135deg,${C.wh} 0%,${C.cyan} 100%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            marginBottom: 18,
+            maxWidth: 680,
+          }}
+        >
+          Predicting Customer Attrition
+        </h1>
+        <p
+          style={{
+            fontSize: 16,
+            color: C.ts,
+            fontFamily: "DM Sans",
+            maxWidth: 540,
+            margin: "0 auto 30px",
+            lineHeight: 1.6,
+          }}
+        >
+          A data-driven proof of concept to identify and mitigate churn risks
+          through machine learning and predictive analytics
+        </p>
+        <div
+          style={{
+            display: "flex",
+            gap: 16,
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          {[
+            { icon: Target, label: "10% Churn Reduction" },
+            { icon: Brain, label: "ML-Powered" },
+            { icon: Users, label: "2,000+ Customers" },
+          ].map((it, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "9px 18px",
+                borderRadius: 10,
+                background: C.cb,
+                border: `1px solid ${C.cbr}`,
+              }}
+            >
+              <it.icon size={15} color={C.cyan} />
+              <span
+                style={{
+                  fontSize: 12,
+                  color: C.ts,
+                  fontFamily: "DM Sans",
+                  fontWeight: 500,
+                }}
+              >
+                {it.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="250px" t="-50px" l="70%" c={C.teal} /><Tg text="Overview" /><Ti>Presentation Agenda</Ti><Sb>A structured walkthrough of our churn prediction initiative from business context to deployment cost analysis.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 800 }}>{[{ n: "01", t: "Company Overview", d: "Reder Telecom profile & market position" }, { n: "02", t: "The Challenge", d: "Churn drivers, obstacles & business impact" }, { n: "03", t: "Project Rationale", d: "Why predictive analytics is the right approach" }, { n: "04", t: "Objectives & Goals", d: "Measurable targets and expected outcomes" }, { n: "05", t: "Data & Preprocessing", d: "Source data, cleaning & feature engineering" }, { n: "06", t: "Model Training", d: "Feature selection, tuning & evaluation" }, { n: "07", t: "Solution Architecture", d: "Tech stack, pipeline & FastAPI deployment" }, { n: "08", t: "Cloud Deployment Costs", d: "AWS vs Azure vs GCP cost comparison" }].map((it, i) => <div key={i} style={{ display: "flex", gap: 12, padding: "14px 16px", borderRadius: 12, background: C.cb, border: `1px solid ${C.cbr}` }}><span style={{ fontSize: 22, fontWeight: 800, fontFamily: "Sora", color: `${C.teal}40`, minWidth: 32 }}>{it.n}</span><div><div style={{ fontSize: 13, fontWeight: 600, color: C.tp, fontFamily: "DM Sans" }}>{it.t}</div><div style={{ fontSize: 11, color: C.tm, fontFamily: "DM Sans", marginTop: 2 }}>{it.d}</div></div></div>)}</div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="250px" t="-50px" l="70%" c={C.teal} />
+      <Tg text="Overview" />
+      <Ti>Presentation Agenda</Ti>
+      <Sb>
+        A structured walkthrough of our churn prediction initiative from
+        business context to deployment cost analysis.
+      </Sb>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 14,
+          maxWidth: 800,
+        }}
+      >
+        {[
+          {
+            n: "01",
+            t: "Company Overview",
+            d: "Reder Telecom profile & market position",
+          },
+          {
+            n: "02",
+            t: "The Challenge",
+            d: "Churn drivers, obstacles & business impact",
+          },
+          {
+            n: "03",
+            t: "Project Rationale",
+            d: "Why predictive analytics is the right approach",
+          },
+          {
+            n: "04",
+            t: "Objectives & Goals",
+            d: "Measurable targets and expected outcomes",
+          },
+          {
+            n: "05",
+            t: "Data & Preprocessing",
+            d: "Source data, cleaning & feature engineering",
+          },
+          {
+            n: "06",
+            t: "Model Training",
+            d: "Feature selection, tuning & evaluation",
+          },
+          {
+            n: "07",
+            t: "Solution Architecture",
+            d: "Tech stack, pipeline & FastAPI deployment",
+          },
+          {
+            n: "08",
+            t: "Cloud Deployment Costs",
+            d: "AWS vs Azure vs GCP cost comparison",
+          },
+        ].map((it, i) => (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              gap: 12,
+              padding: "14px 16px",
+              borderRadius: 12,
+              background: C.cb,
+              border: `1px solid ${C.cbr}`,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 22,
+                fontWeight: 800,
+                fontFamily: "Sora",
+                color: `${C.teal}40`,
+                minWidth: 32,
+              }}
+            >
+              {it.n}
+            </span>
+            <div>
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: C.tp,
+                  fontFamily: "DM Sans",
+                }}
+              >
+                {it.t}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: C.tm,
+                  fontFamily: "DM Sans",
+                  marginTop: 2,
+                }}
+              >
+                {it.d}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
 
-  SI({ number: "01", title: "Company Overview", subtitle: "Understanding Reder Telecom's market position, services, and current challenges.", icon: Globe, color: C.teal }),
+  SI({
+    number: "01",
+    title: "Company Overview",
+    subtitle:
+      "Understanding Reder Telecom's market position, services, and current challenges.",
+    icon: Globe,
+    color: C.teal,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="300px" t="30%" l="75%" c={C.cyan} d={1} /><Tg text="Company Profile" /><Ti>Reder Telecommunications</Ti><Sb>A prominent telecom provider headquartered in Oslo, Norway delivering internet and mobile services since 2005.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 14, marginBottom: 22 }}><St icon={Globe} value="2005" label="Year Founded" color={C.teal} /><St icon={Users} value="2K+" label="Active Customers" color={C.cyan} /><St icon={Wifi} value="Oslo" label="Headquarters" color={C.mint} /><St icon={TrendingDown} value="15%" label="Annual Churn Rate" color={C.dng} /></div><Cd><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24 }}>{[{ icon: Wifi, title: "Internet Services", desc: "Broadband and fiber connectivity for residential and business customers" }, { icon: Phone, title: "Mobile Services", desc: "Voice, data, and mobile plans tailored to diverse customer segments" }, { icon: Shield, title: "Market Position", desc: "Established provider facing mounting competitive pressure and rising attrition" }].map((it, i) => <div key={i} style={{ textAlign: "center" }}><it.icon size={22} color={C.cyan} style={{ marginBottom: 10 }} /><div style={{ fontSize: 13, fontWeight: 600, color: C.tp, fontFamily: "DM Sans", marginBottom: 5 }}>{it.title}</div><div style={{ fontSize: 12, color: C.ts, lineHeight: 1.55, fontFamily: "DM Sans" }}>{it.desc}</div></div>)}</div></Cd></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="300px" t="30%" l="75%" c={C.cyan} d={1} />
+      <Tg text="Company Profile" />
+      <Ti>Reder Telecommunications</Ti>
+      <Sb>
+        A prominent telecom provider headquartered in Oslo, Norway delivering
+        internet and mobile services since 2005.
+      </Sb>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr 1fr",
+          gap: 14,
+          marginBottom: 22,
+        }}
+      >
+        <St icon={Globe} value="2005" label="Year Founded" color={C.teal} />
+        <St icon={Users} value="2K+" label="Active Customers" color={C.cyan} />
+        <St icon={Wifi} value="Oslo" label="Headquarters" color={C.mint} />
+        <St
+          icon={TrendingDown}
+          value="15%"
+          label="Annual Churn Rate"
+          color={C.dng}
+        />
+      </div>
+      <Cd>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: 24,
+          }}
+        >
+          {[
+            {
+              icon: Wifi,
+              title: "Internet Services",
+              desc: "Broadband and fiber connectivity for residential and business customers",
+            },
+            {
+              icon: Phone,
+              title: "Mobile Services",
+              desc: "Voice, data, and mobile plans tailored to diverse customer segments",
+            },
+            {
+              icon: Shield,
+              title: "Market Position",
+              desc: "Established provider facing mounting competitive pressure and rising attrition",
+            },
+          ].map((it, i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <it.icon size={22} color={C.cyan} style={{ marginBottom: 10 }} />
+              <div
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: C.tp,
+                  fontFamily: "DM Sans",
+                  marginBottom: 5,
+                }}
+              >
+                {it.title}
+              </div>
+              <div
+                style={{
+                  fontSize: 12,
+                  color: C.ts,
+                  lineHeight: 1.55,
+                  fontFamily: "DM Sans",
+                }}
+              >
+                {it.desc}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Cd>
+    </div>
+  ),
 
-  SI({ number: "02", title: "The Challenge", subtitle: "Rising customer churn is threatening revenue, market share, and long-term growth.", icon: AlertTriangle, color: C.dng }),
+  SI({
+    number: "02",
+    title: "The Challenge",
+    subtitle:
+      "Rising customer churn is threatening revenue, market share, and long-term growth.",
+    icon: AlertTriangle,
+    color: C.dng,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="280px" t="-30px" l="80%" c={C.dng} d={0.5} /><Tg text="The Problem" /><Ti>Churn Drivers & Business Impact</Ti><Sb>Three core factors accelerating attrition, compounded by four internal obstacles.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}><div><IR icon={Zap} title="Intense Competition" desc="Multiple providers offer similar services at lower prices, creating a volatile market." color={C.acc} /><IR icon={AlertTriangle} title="Network Quality Issues" desc="Service interruptions and unreliable coverage directly drive customer departures." color={C.dng} /><IR icon={Users} title="Shifting Expectations" desc="Demand for personalized services and competitive pricing Reder hasn't addressed." color={C.teal} /><Cd style={{ marginTop: 4, background: `${C.dng}08`, borderColor: `${C.dng}25` }}><div style={{ display: "flex", alignItems: "center", gap: 10 }}><TrendingDown size={18} color={C.dng} /><span style={{ fontSize: 13, color: C.tp, fontFamily: "DM Sans" }}>Acquisition costs <span style={{ color: C.acc, fontWeight: 700 }}>5-7x</span> higher than retention</span></div></Cd></div><Cd glow><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1 }}>Key Obstacles</div>{[{ t: "Limited Customer Insight", d: "Aggregate rates only - no per-segment analytics", c: C.teal }, { t: "Pricing Inconsistencies", d: "Identical usage, different plans - perceived unfairness", c: C.acc }, { t: "Network Quality Gaps", d: "No predictive system to address outages proactively", c: C.dng }, { t: "Reactive Retention", d: "Interventions only after intent to leave is signaled", c: C.cyan }].map((it, i) => <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 12, padding: "10px 12px", borderRadius: 8, background: `${it.c}08` }}><div style={{ minWidth: 6, height: 6, borderRadius: "50%", background: it.c, marginTop: 6 }} /><div><div style={{ fontSize: 13, fontWeight: 600, color: C.tp, fontFamily: "DM Sans" }}>{it.t}</div><div style={{ fontSize: 11.5, color: C.ts, fontFamily: "DM Sans" }}>{it.d}</div></div></div>)}</Cd></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="280px" t="-30px" l="80%" c={C.dng} d={0.5} />
+      <Tg text="The Problem" />
+      <Ti>Churn Drivers & Business Impact</Ti>
+      <Sb>
+        Three core factors accelerating attrition, compounded by four internal
+        obstacles.
+      </Sb>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <div>
+          <IR
+            icon={Zap}
+            title="Intense Competition"
+            desc="Multiple providers offer similar services at lower prices, creating a volatile market."
+            color={C.acc}
+          />
+          <IR
+            icon={AlertTriangle}
+            title="Network Quality Issues"
+            desc="Service interruptions and unreliable coverage directly drive customer departures."
+            color={C.dng}
+          />
+          <IR
+            icon={Users}
+            title="Shifting Expectations"
+            desc="Demand for personalized services and competitive pricing Reder hasn't addressed."
+            color={C.teal}
+          />
+          <Cd
+            style={{
+              marginTop: 4,
+              background: `${C.dng}08`,
+              borderColor: `${C.dng}25`,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <TrendingDown size={18} color={C.dng} />
+              <span
+                style={{ fontSize: 13, color: C.tp, fontFamily: "DM Sans" }}
+              >
+                Acquisition costs{" "}
+                <span style={{ color: C.acc, fontWeight: 700 }}>5-7x</span>{" "}
+                higher than retention
+              </span>
+            </div>
+          </Cd>
+        </div>
+        <Cd glow>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.cyan,
+              fontFamily: "DM Sans",
+              marginBottom: 12,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Key Obstacles
+          </div>
+          {[
+            {
+              t: "Limited Customer Insight",
+              d: "Aggregate rates only - no per-segment analytics",
+              c: C.teal,
+            },
+            {
+              t: "Pricing Inconsistencies",
+              d: "Identical usage, different plans - perceived unfairness",
+              c: C.acc,
+            },
+            {
+              t: "Network Quality Gaps",
+              d: "No predictive system to address outages proactively",
+              c: C.dng,
+            },
+            {
+              t: "Reactive Retention",
+              d: "Interventions only after intent to leave is signaled",
+              c: C.cyan,
+            },
+          ].map((it, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                gap: 10,
+                alignItems: "flex-start",
+                marginBottom: 12,
+                padding: "10px 12px",
+                borderRadius: 8,
+                background: `${it.c}08`,
+              }}
+            >
+              <div
+                style={{
+                  minWidth: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: it.c,
+                  marginTop: 6,
+                }}
+              />
+              <div>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: C.tp,
+                    fontFamily: "DM Sans",
+                  }}
+                >
+                  {it.t}
+                </div>
+                <div
+                  style={{ fontSize: 11.5, color: C.ts, fontFamily: "DM Sans" }}
+                >
+                  {it.d}
+                </div>
+              </div>
+            </div>
+          ))}
+        </Cd>
+      </div>
+    </div>
+  ),
 
-  SI({ number: "03", title: "Project Rationale", subtitle: "Why predictive analytics is the proven approach to combat churn backed by industry leaders.", icon: Target, color: C.acc }),
+  SI({
+    number: "03",
+    title: "Project Rationale",
+    subtitle:
+      "Why predictive analytics is the proven approach to combat churn backed by industry leaders.",
+    icon: Target,
+    color: C.acc,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="300px" t="10%" l="70%" c={C.teal} /><Tg text="Why This Approach" /><Ti>Industry Precedent & Strategic Value</Ti><Sb>Top companies already use ML to predict and prevent churn. Here is why Reder should follow.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}><div><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1 }}>Industry Precedent</div>{[{ name: "Netflix", desc: "Predicts at-risk subscribers, targets with personalized retention offers" }, { name: "Spotify", desc: "Uses ML on listening habits to boost engagement and loyalty" }, { name: "Amazon", desc: "Behavior analytics optimize recommendations and drive repeat purchases" }].map((it, i) => <div key={i} style={{ display: "flex", gap: 10, marginBottom: 12, padding: "12px 14px", borderRadius: 10, background: C.cb, border: `1px solid ${C.cbr}` }}><CheckCircle size={15} color={C.suc} style={{ marginTop: 2, flexShrink: 0 }} /><div><span style={{ fontSize: 13, fontWeight: 600, color: C.tp, fontFamily: "DM Sans" }}>{it.name}</span><div style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans", marginTop: 2, lineHeight: 1.5 }}>{it.desc}</div></div></div>)}</div><div><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1 }}>Five Strategic Reasons</div>{[{ icon: DollarSign, t: "Reduce Costs", d: "Retention far cheaper than acquisition" }, { icon: TrendingDown, t: "Increase Revenue", d: "Retained customers upsell and upgrade" }, { icon: Users, t: "Enhance Satisfaction", d: "Address pain points through analytics" }, { icon: Shield, t: "Competitive Advantage", d: "Proactive retention outpaces rivals" }, { icon: Brain, t: "Data-Driven Decisions", d: "Real-time insights guide strategy" }].map((it, i) => <IR key={i} icon={it.icon} title={it.t} desc={it.d} color={i % 2 === 0 ? C.teal : C.cyan} />)}</div></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="300px" t="10%" l="70%" c={C.teal} />
+      <Tg text="Why This Approach" />
+      <Ti>Industry Precedent & Strategic Value</Ti>
+      <Sb>
+        Top companies already use ML to predict and prevent churn. Here is why
+        Reder should follow.
+      </Sb>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.cyan,
+              fontFamily: "DM Sans",
+              marginBottom: 12,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Industry Precedent
+          </div>
+          {[
+            {
+              name: "Netflix",
+              desc: "Predicts at-risk subscribers, targets with personalized retention offers",
+            },
+            {
+              name: "Spotify",
+              desc: "Uses ML on listening habits to boost engagement and loyalty",
+            },
+            {
+              name: "Amazon",
+              desc: "Behavior analytics optimize recommendations and drive repeat purchases",
+            },
+          ].map((it, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                gap: 10,
+                marginBottom: 12,
+                padding: "12px 14px",
+                borderRadius: 10,
+                background: C.cb,
+                border: `1px solid ${C.cbr}`,
+              }}
+            >
+              <CheckCircle
+                size={15}
+                color={C.suc}
+                style={{ marginTop: 2, flexShrink: 0 }}
+              />
+              <div>
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: C.tp,
+                    fontFamily: "DM Sans",
+                  }}
+                >
+                  {it.name}
+                </span>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: C.ts,
+                    fontFamily: "DM Sans",
+                    marginTop: 2,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {it.desc}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.cyan,
+              fontFamily: "DM Sans",
+              marginBottom: 12,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Five Strategic Reasons
+          </div>
+          {[
+            {
+              icon: DollarSign,
+              t: "Reduce Costs",
+              d: "Retention far cheaper than acquisition",
+            },
+            {
+              icon: TrendingDown,
+              t: "Increase Revenue",
+              d: "Retained customers upsell and upgrade",
+            },
+            {
+              icon: Users,
+              t: "Enhance Satisfaction",
+              d: "Address pain points through analytics",
+            },
+            {
+              icon: Shield,
+              t: "Competitive Advantage",
+              d: "Proactive retention outpaces rivals",
+            },
+            {
+              icon: Brain,
+              t: "Data-Driven Decisions",
+              d: "Real-time insights guide strategy",
+            },
+          ].map((it, i) => (
+            <IR
+              key={i}
+              icon={it.icon}
+              title={it.t}
+              desc={it.d}
+              color={i % 2 === 0 ? C.teal : C.cyan}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
 
-  SI({ number: "04", title: "Project Objectives", subtitle: "Measurable targets and expected business outcomes for the churn prediction initiative.", icon: BarChart3, color: C.suc }),
+  SI({
+    number: "04",
+    title: "Project Objectives",
+    subtitle:
+      "Measurable targets and expected business outcomes for the churn prediction initiative.",
+    icon: BarChart3,
+    color: C.suc,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="280px" t="20%" l="80%" c={C.suc} d={0.5} /><Tg text="Goals" /><Ti>Three Pillars of Success</Ti><Sb>Clear, measurable objectives that define success for Reder Telecom.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 20 }}>{[{ icon: Brain, n: "01", t: "Build Predictive Model", d: "Leverage historical data to predict churn with high accuracy using ML.", c: C.teal }, { icon: Target, n: "02", t: "Data-Driven Retention", d: "Identify key churn drivers to craft personalized retention strategies.", c: C.cyan }, { icon: Users, n: "03", t: "Proactive Engagement", d: "Shift to proactive with personalized offers for at-risk users.", c: C.mint }].map((it, i) => <Cd key={i} glow><div style={{ fontSize: 38, fontWeight: 800, fontFamily: "Sora", color: `${it.c}20`, marginBottom: 6 }}>{it.n}</div><it.icon size={20} color={it.c} /><div style={{ fontSize: 14, fontWeight: 700, color: C.tp, fontFamily: "DM Sans", margin: "8px 0 6px" }}>{it.t}</div><div style={{ fontSize: 12, color: C.ts, lineHeight: 1.6, fontFamily: "DM Sans" }}>{it.d}</div></Cd>)}</div><Cd style={{ background: `${C.suc}08`, borderColor: `${C.suc}25` }}><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 16, textAlign: "center" }}>{[{ l: "Churn Reduction", v: "10%", s: "within 12 months" }, { l: "Retention", v: "\u2191 CLV", s: "customer lifetime value" }, { l: "Marketing", v: "\u2191 ROI", s: "targeted campaigns" }, { l: "Revenue", v: "\u2193 Cost", s: "vs. new acquisition" }].map((it, i) => <div key={i}><div style={{ fontSize: 24, fontWeight: 800, fontFamily: "Sora", color: C.suc }}>{it.v}</div><div style={{ fontSize: 11, fontWeight: 600, color: C.tp, fontFamily: "DM Sans", marginTop: 3 }}>{it.l}</div><div style={{ fontSize: 10, color: C.tm, fontFamily: "DM Sans" }}>{it.s}</div></div>)}</div></Cd></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="280px" t="20%" l="80%" c={C.suc} d={0.5} />
+      <Tg text="Goals" />
+      <Ti>Three Pillars of Success</Ti>
+      <Sb>
+        Clear, measurable objectives that define success for Reder Telecom.
+      </Sb>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gap: 16,
+          marginBottom: 20,
+        }}
+      >
+        {[
+          {
+            icon: Brain,
+            n: "01",
+            t: "Build Predictive Model",
+            d: "Leverage historical data to predict churn with high accuracy using ML.",
+            c: C.teal,
+          },
+          {
+            icon: Target,
+            n: "02",
+            t: "Data-Driven Retention",
+            d: "Identify key churn drivers to craft personalized retention strategies.",
+            c: C.cyan,
+          },
+          {
+            icon: Users,
+            n: "03",
+            t: "Proactive Engagement",
+            d: "Shift to proactive with personalized offers for at-risk users.",
+            c: C.mint,
+          },
+        ].map((it, i) => (
+          <Cd key={i} glow>
+            <div
+              style={{
+                fontSize: 38,
+                fontWeight: 800,
+                fontFamily: "Sora",
+                color: `${it.c}20`,
+                marginBottom: 6,
+              }}
+            >
+              {it.n}
+            </div>
+            <it.icon size={20} color={it.c} />
+            <div
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                color: C.tp,
+                fontFamily: "DM Sans",
+                margin: "8px 0 6px",
+              }}
+            >
+              {it.t}
+            </div>
+            <div
+              style={{
+                fontSize: 12,
+                color: C.ts,
+                lineHeight: 1.6,
+                fontFamily: "DM Sans",
+              }}
+            >
+              {it.d}
+            </div>
+          </Cd>
+        ))}
+      </div>
+      <Cd style={{ background: `${C.suc}08`, borderColor: `${C.suc}25` }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            gap: 16,
+            textAlign: "center",
+          }}
+        >
+          {[
+            { l: "Churn Reduction", v: "10%", s: "within 12 months" },
+            { l: "Retention", v: "\u2191 CLV", s: "customer lifetime value" },
+            { l: "Marketing", v: "\u2191 ROI", s: "targeted campaigns" },
+            { l: "Revenue", v: "\u2193 Cost", s: "vs. new acquisition" },
+          ].map((it, i) => (
+            <div key={i}>
+              <div
+                style={{
+                  fontSize: 24,
+                  fontWeight: 800,
+                  fontFamily: "Sora",
+                  color: C.suc,
+                }}
+              >
+                {it.v}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: C.tp,
+                  fontFamily: "DM Sans",
+                  marginTop: 3,
+                }}
+              >
+                {it.l}
+              </div>
+              <div style={{ fontSize: 10, color: C.tm, fontFamily: "DM Sans" }}>
+                {it.s}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Cd>
+    </div>
+  ),
 
-  SI({ number: "05", title: "Data & Preprocessing", subtitle: "Transforming raw, unstructured telecom data into clean, analysis-ready features.", icon: Database, color: C.pur }),
+  SI({
+    number: "05",
+    title: "Data & Preprocessing",
+    subtitle:
+      "Transforming raw, unstructured telecom data into clean, analysis-ready features.",
+    icon: Database,
+    color: C.pur,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="250px" t="50%" l="75%" c={C.teal} d={1} /><Tg text="Source Data" /><Ti>Dataset & Initial Exploration</Ti><Sb>2,000+ customer records with 20+ attributes. Raw data contained nested JSON requiring extensive parsing.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}><Cd glow><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1 }}>Columns Failing 1NF</div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>{["PurchaseHistory", "SubscriptionDetails", "ServiceInteractions", "PaymentHistory", "WebsiteUsage", "ClickstreamData", "EngagementMetrics", "Feedback", "MarketingComm", "NPS / ChurnLabel"].map((a, i) => <div key={i} style={{ fontSize: 11.5, color: i < 9 ? C.acc : C.suc, fontFamily: "JetBrains Mono", padding: "5px 8px", borderRadius: 6, background: `${i < 9 ? C.acc : C.suc}08`, border: `1px solid ${i < 9 ? C.acc : C.suc}15` }}>{a}</div>)}</div><div style={{ marginTop: 12, fontSize: 11, color: C.tm, fontFamily: "DM Sans", fontStyle: "italic" }}>Orange = nested JSON columns needing normalization</div></Cd><div><Cd style={{ marginBottom: 14 }}><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Data Loading (clean.ipynb)</div><CB><span style={{ color: C.teal }}>import</span> pandas <span style={{ color: C.teal }}>as</span> pd{"\n"}pd.set_option(<span style={{ color: C.suc }}>"display.max_columns"</span>, None){"\n\n"}customer_data = pd.read_csv({"\n"}{"  "}<span style={{ color: C.suc }}>"Dataset.xlsx - Sheet1.csv"</span>{"\n"}){"\n"}customer_data.head()</CB></Cd><Cd><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>JSON Parsing with ast</div><CB><span style={{ color: C.teal }}>import</span> ast{"\n\n"}<span style={{ color: C.acc }}>def</span> <span style={{ color: C.cyan }}>convert_string</span>(col):{"\n"}{"  "}<span style={{ color: C.teal }}>if</span> isinstance(col, str):{"\n"}{"    "}<span style={{ color: C.teal }}>return</span> ast.literal_eval(col){"\n"}{"  "}<span style={{ color: C.teal }}>return</span> col{"\n\n"}<span style={{ color: C.teal }}>for</span> col <span style={{ color: C.teal }}>in</span> cols_to_extract:{"\n"}{"  "}customer_data[col] ={"\n"}{"    "}customer_data[col].apply(convert_string)</CB></Cd></div></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="250px" t="50%" l="75%" c={C.teal} d={1} />
+      <Tg text="Source Data" />
+      <Ti>Dataset & Initial Exploration</Ti>
+      <Sb>
+        2,000+ customer records with 20+ attributes. Raw data contained nested
+        JSON requiring extensive parsing.
+      </Sb>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <Cd glow>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.cyan,
+              fontFamily: "DM Sans",
+              marginBottom: 12,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Columns Failing 1NF
+          </div>
+          <div
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}
+          >
+            {[
+              "PurchaseHistory",
+              "SubscriptionDetails",
+              "ServiceInteractions",
+              "PaymentHistory",
+              "WebsiteUsage",
+              "ClickstreamData",
+              "EngagementMetrics",
+              "Feedback",
+              "MarketingComm",
+              "NPS / ChurnLabel",
+            ].map((a, i) => (
+              <div
+                key={i}
+                style={{
+                  fontSize: 11.5,
+                  color: i < 9 ? C.acc : C.suc,
+                  fontFamily: "JetBrains Mono",
+                  padding: "5px 8px",
+                  borderRadius: 6,
+                  background: `${i < 9 ? C.acc : C.suc}08`,
+                  border: `1px solid ${i < 9 ? C.acc : C.suc}15`,
+                }}
+              >
+                {a}
+              </div>
+            ))}
+          </div>
+          <div
+            style={{
+              marginTop: 12,
+              fontSize: 11,
+              color: C.tm,
+              fontFamily: "DM Sans",
+              fontStyle: "italic",
+            }}
+          >
+            Orange = nested JSON columns needing normalization
+          </div>
+        </Cd>
+        <div>
+          <Cd style={{ marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.cyan,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Data Loading (clean.ipynb)
+            </div>
+            <CB>
+              <span style={{ color: C.teal }}>import</span> pandas{" "}
+              <span style={{ color: C.teal }}>as</span> pd{"\n"}pd.set_option(
+              <span style={{ color: C.suc }}>"display.max_columns"</span>, None)
+              {"\n\n"}customer_data = pd.read_csv({"\n"}
+              {"  "}
+              <span style={{ color: C.suc }}>"Dataset.xlsx - Sheet1.csv"</span>
+              {"\n"}){"\n"}customer_data.head()
+            </CB>
+          </Cd>
+          <Cd>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.cyan,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              JSON Parsing with ast
+            </div>
+            <CB>
+              <span style={{ color: C.teal }}>import</span> ast{"\n\n"}
+              <span style={{ color: C.acc }}>def</span>{" "}
+              <span style={{ color: C.cyan }}>convert_string</span>(col):{"\n"}
+              {"  "}
+              <span style={{ color: C.teal }}>if</span> isinstance(col, str):
+              {"\n"}
+              {"    "}
+              <span style={{ color: C.teal }}>return</span>{" "}
+              ast.literal_eval(col){"\n"}
+              {"  "}
+              <span style={{ color: C.teal }}>return</span> col{"\n\n"}
+              <span style={{ color: C.teal }}>for</span> col{" "}
+              <span style={{ color: C.teal }}>in</span> cols_to_extract:{"\n"}
+              {"  "}customer_data[col] ={"\n"}
+              {"    "}customer_data[col].apply(convert_string)
+            </CB>
+          </Cd>
+        </div>
+      </div>
+    </div>
+  ),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="300px" t="-20px" l="65%" c={C.cyan} /><Tg text="Feature Engineering" /><Ti>Normalization, RFM & Encoding</Ti><Sb>Nested columns normalized into separate DataFrames, merged via CustomerID, then encoded.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}><div><Cd style={{ marginBottom: 14 }} glow><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Normalize & Merge</div><CB><span style={{ color: C.tm }}>// normalize_column() handles:</span>{"\n"}<span style={{ color: C.tm }}>// list[dict] -&gt; explode + json_normalize</span>{"\n"}<span style={{ color: C.tm }}>// dict -&gt; json_normalize directly</span>{"\n\n"}sub_details = normalize_column({"\n"}{"  "}customer_data, <span style={{ color: C.suc }}>"SubscriptionDetails"</span>){"\n"}srv_interac = normalize_column({"\n"}{"  "}customer_data, <span style={{ color: C.suc }}>"ServiceInteractions"</span>){"\n"}<span style={{ color: C.tm }}>// ... + 6 more nested columns</span>{"\n\n"}customer_main = demographic_features{"\n"}{"  "}.merge(purchase_hist, on=<span style={{ color: C.suc }}>'CustomerID'</span>){"\n"}{"  "}.merge(sub_details, on=<span style={{ color: C.suc }}>'CustomerID'</span>){"\n"}{"  "}<span style={{ color: C.tm }}>// ... chain 8 merges total</span></CB></Cd><Cd><div style={{ fontSize: 12, fontWeight: 600, color: C.suc, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Encoding Strategy</div><CB><span style={{ color: C.tm }}>// OneHot -&gt; nominal</span>{"\n"}[<span style={{ color: C.suc }}>'Gender','Segment','nps_category'</span>]{"\n\n"}<span style={{ color: C.tm }}>// Label -&gt; ordinal</span>{"\n"}[<span style={{ color: C.suc }}>'age_group','customer_segment'</span>]{"\n\n"}<span style={{ color: C.tm }}>// Target Encoding -&gt; cardinal</span>{"\n"}groupby(col)[<span style={{ color: C.suc }}>'total_purchase_value'</span>]{"\n"}{"  "}.transform(<span style={{ color: C.suc }}>'mean'</span>){"\n\n"}<span style={{ color: C.tm }}>// Output: 12,483 rows x 55 cols</span></CB></Cd></div><Cd glow><div style={{ fontSize: 12, fontWeight: 600, color: C.acc, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>RFM Analysis</div><CB style={{ marginBottom: 14 }}><span style={{ color: C.tm }}>// Recency, Frequency, Monetary</span>{"\n"}present_date = customer_main{"\n"}{"  "}["last_interaction_date"].max(){"\n\n"}recency = present_date - last_interaction{"\n"}frequency = total_frequency * Logins{"\n"}monetary = total_purchase_value{"\n\n"}<span style={{ color: C.tm }}>// Quintile binning (1-5)</span>{"\n"}R_label = range(<span style={{ color: C.cyan }}>5, 0, -1</span>){"\n"}F_label = range(<span style={{ color: C.cyan }}>1, 6</span>){"\n"}M_label = range(<span style={{ color: C.cyan }}>1, 6</span>){"\n\n"}pd.qcut(recency, <span style={{ color: C.cyan }}>5</span>, labels=R_label){"\n"}RFM_Score = R + F + M{"\n\n"}<span style={{ color: C.tm }}>// Segment customers</span>{"\n"}bins = [<span style={{ color: C.cyan }}>1, 4, 10, 15</span>]{"\n"}labels = [<span style={{ color: C.suc }}>'risk','engaged','loyalist'</span>]</CB><div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}><Bg label="Pandas" color={C.teal} /><Bg label="NumPy" color={C.cyan} /><Bg label="Scikit-learn" color={C.acc} /><Bg label="Jupyter" color={C.suc} /></div></Cd></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="300px" t="-20px" l="65%" c={C.cyan} />
+      <Tg text="Feature Engineering" />
+      <Ti>Normalization, RFM & Encoding</Ti>
+      <Sb>
+        Nested columns normalized into separate DataFrames, merged via
+        CustomerID, then encoded.
+      </Sb>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <div>
+          <Cd style={{ marginBottom: 14 }} glow>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.cyan,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Normalize & Merge
+            </div>
+            <CB>
+              <span style={{ color: C.tm }}>
+                // normalize_column() handles:
+              </span>
+              {"\n"}
+              <span style={{ color: C.tm }}>
+                // list[dict] -&gt; explode + json_normalize
+              </span>
+              {"\n"}
+              <span style={{ color: C.tm }}>
+                // dict -&gt; json_normalize directly
+              </span>
+              {"\n\n"}sub_details = normalize_column({"\n"}
+              {"  "}customer_data,{" "}
+              <span style={{ color: C.suc }}>"SubscriptionDetails"</span>){"\n"}
+              srv_interac = normalize_column({"\n"}
+              {"  "}customer_data,{" "}
+              <span style={{ color: C.suc }}>"ServiceInteractions"</span>){"\n"}
+              <span style={{ color: C.tm }}>
+                // ... + 6 more nested columns
+              </span>
+              {"\n\n"}customer_main = demographic_features{"\n"}
+              {"  "}.merge(purchase_hist, on=
+              <span style={{ color: C.suc }}>'CustomerID'</span>){"\n"}
+              {"  "}.merge(sub_details, on=
+              <span style={{ color: C.suc }}>'CustomerID'</span>){"\n"}
+              {"  "}
+              <span style={{ color: C.tm }}>// ... chain 8 merges total</span>
+            </CB>
+          </Cd>
+          <Cd>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.suc,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Encoding Strategy
+            </div>
+            <CB>
+              <span style={{ color: C.tm }}>// OneHot -&gt; nominal</span>
+              {"\n"}[
+              <span style={{ color: C.suc }}>
+                'Gender','Segment','nps_category'
+              </span>
+              ]{"\n\n"}
+              <span style={{ color: C.tm }}>// Label -&gt; ordinal</span>
+              {"\n"}[
+              <span style={{ color: C.suc }}>
+                'age_group','customer_segment'
+              </span>
+              ]{"\n\n"}
+              <span style={{ color: C.tm }}>
+                // Target Encoding -&gt; cardinal
+              </span>
+              {"\n"}groupby(col)[
+              <span style={{ color: C.suc }}>'total_purchase_value'</span>]
+              {"\n"}
+              {"  "}.transform(<span style={{ color: C.suc }}>'mean'</span>)
+              {"\n\n"}
+              <span style={{ color: C.tm }}>
+                // Output: 12,483 rows x 55 cols
+              </span>
+            </CB>
+          </Cd>
+        </div>
+        <Cd glow>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.acc,
+              fontFamily: "DM Sans",
+              marginBottom: 10,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            RFM Analysis
+          </div>
+          <CB style={{ marginBottom: 14 }}>
+            <span style={{ color: C.tm }}>// Recency, Frequency, Monetary</span>
+            {"\n"}present_date = customer_main{"\n"}
+            {"  "}["last_interaction_date"].max(){"\n\n"}recency = present_date
+            - last_interaction{"\n"}frequency = total_frequency * Logins{"\n"}
+            monetary = total_purchase_value{"\n\n"}
+            <span style={{ color: C.tm }}>// Quintile binning (1-5)</span>
+            {"\n"}R_label = range(
+            <span style={{ color: C.cyan }}>5, 0, -1</span>){"\n"}F_label =
+            range(<span style={{ color: C.cyan }}>1, 6</span>){"\n"}M_label =
+            range(<span style={{ color: C.cyan }}>1, 6</span>){"\n\n"}
+            pd.qcut(recency, <span style={{ color: C.cyan }}>5</span>,
+            labels=R_label){"\n"}RFM_Score = R + F + M{"\n\n"}
+            <span style={{ color: C.tm }}>// Segment customers</span>
+            {"\n"}bins = [<span style={{ color: C.cyan }}>1, 4, 10, 15</span>]
+            {"\n"}labels = [
+            <span style={{ color: C.suc }}>'risk','engaged','loyalist'</span>]
+          </CB>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            <Bg label="Pandas" color={C.teal} />
+            <Bg label="NumPy" color={C.cyan} />
+            <Bg label="Scikit-learn" color={C.acc} />
+            <Bg label="Jupyter" color={C.suc} />
+          </div>
+        </Cd>
+      </div>
+    </div>
+  ),
 
-  SI({ number: "06", title: "Model Training", subtitle: "Feature selection, hyperparameter tuning, and model evaluation with 97% accuracy.", icon: Brain, color: C.teal }),
+  SI({
+    number: "06",
+    title: "Model Training",
+    subtitle:
+      "Feature selection, hyperparameter tuning, and model evaluation with 97% accuracy.",
+    icon: Brain,
+    color: C.teal,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="280px" t="40%" l="80%" c={C.teal} /><Tg text="Feature Selection" /><Ti>Mutual Information & Baseline</Ti><Sb>Top 20 features ranked by MI scores. Logistic Regression baseline achieves 97% accuracy.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}><Cd glow><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 12, textTransform: "uppercase", letterSpacing: 1 }}>Top Features by MI Score</div>{[{ f: "payment_risk_score", v: 95 }, { f: "total_late_payments", v: 93 }, { f: "late_payment_rate", v: 97 }, { f: "total_interactions", v: 58 }, { f: "TimeSpent(minutes)", v: 57 }, { f: "NPS", v: 52 }, { f: "engagement_intensity", v: 38 }, { f: "engagement_ratio", v: 37 }, { f: "nps_category_Detractor", v: 32 }, { f: "nps_category_Passive", v: 28 }].map((it, i) => <div key={i} style={{ marginBottom: 6 }}><div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}><span style={{ fontSize: 10.5, color: C.ts, fontFamily: "JetBrains Mono" }}>{it.f}</span></div><div style={{ height: 5, borderRadius: 3, background: C.ls, overflow: "hidden" }}><div style={{ height: "100%", borderRadius: 3, width: `${it.v}%`, background: `linear-gradient(90deg,${C.teal},${C.cyan})` }} /></div></div>)}<div style={{ marginTop: 8, fontSize: 10.5, color: C.tm, fontFamily: "DM Sans", fontStyle: "italic" }}>Payment behavior features dominate churn prediction</div></Cd><div><Cd style={{ marginBottom: 14 }}><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Selection Code</div><CB><span style={{ color: C.teal }}>from</span> sklearn.feature_selection <span style={{ color: C.teal }}>import</span>{"\n"}{"  "}mutual_info_classif{"\n\n"}target = churn_data[<span style={{ color: C.suc }}>'ChurnLabel'</span>]{"\n"}features = churn_data.drop({"\n"}{"  "}columns=[<span style={{ color: C.suc }}>'CustomerID','ChurnLabel'</span>]){"\n\n"}mi_scores = mutual_info_classif(features, target){"\n"}top_20 = mi_scores_sorted.iloc[:<span style={{ color: C.cyan }}>20</span>]</CB></Cd><Cd><div style={{ fontSize: 12, fontWeight: 600, color: C.suc, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Baseline: Logistic Regression</div><CB>lr = LogisticRegression(max_iter=<span style={{ color: C.cyan }}>1000</span>){"\n"}lr.fit(X_train, y_train){"\n\n"}<span style={{ color: C.suc }}>Accuracy: 0.970</span>{"\n"}<span style={{ color: C.tm }}>// Precision: 0.97 | Recall: 0.97</span>{"\n"}<span style={{ color: C.tm }}>// F1: 0.97 | Support: 2497</span></CB><div style={{ marginTop: 8, fontSize: 11, color: C.tm }}>Class balance: 6314 churned / 6169 retained</div></Cd></div></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="280px" t="40%" l="80%" c={C.teal} />
+      <Tg text="Feature Selection" />
+      <Ti>Mutual Information & Baseline</Ti>
+      <Sb>
+        Top 20 features ranked by MI scores. Logistic Regression baseline
+        achieves 97% accuracy.
+      </Sb>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <Cd glow>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.cyan,
+              fontFamily: "DM Sans",
+              marginBottom: 12,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Top Features by MI Score
+          </div>
+          {[
+            { f: "payment_risk_score", v: 95 },
+            { f: "total_late_payments", v: 93 },
+            { f: "late_payment_rate", v: 97 },
+            { f: "total_interactions", v: 58 },
+            { f: "TimeSpent(minutes)", v: 57 },
+            { f: "NPS", v: 52 },
+            { f: "engagement_intensity", v: 38 },
+            { f: "engagement_ratio", v: 37 },
+            { f: "nps_category_Detractor", v: 32 },
+            { f: "nps_category_Passive", v: 28 },
+          ].map((it, i) => (
+            <div key={i} style={{ marginBottom: 6 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 2,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 10.5,
+                    color: C.ts,
+                    fontFamily: "JetBrains Mono",
+                  }}
+                >
+                  {it.f}
+                </span>
+              </div>
+              <div
+                style={{
+                  height: 5,
+                  borderRadius: 3,
+                  background: C.ls,
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    height: "100%",
+                    borderRadius: 3,
+                    width: `${it.v}%`,
+                    background: `linear-gradient(90deg,${C.teal},${C.cyan})`,
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+          <div
+            style={{
+              marginTop: 8,
+              fontSize: 10.5,
+              color: C.tm,
+              fontFamily: "DM Sans",
+              fontStyle: "italic",
+            }}
+          >
+            Payment behavior features dominate churn prediction
+          </div>
+        </Cd>
+        <div>
+          <Cd style={{ marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.cyan,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Selection Code
+            </div>
+            <CB>
+              <span style={{ color: C.teal }}>from</span>{" "}
+              sklearn.feature_selection{" "}
+              <span style={{ color: C.teal }}>import</span>
+              {"\n"}
+              {"  "}mutual_info_classif{"\n\n"}target = churn_data[
+              <span style={{ color: C.suc }}>'ChurnLabel'</span>]{"\n"}features
+              = churn_data.drop({"\n"}
+              {"  "}columns=[
+              <span style={{ color: C.suc }}>'CustomerID','ChurnLabel'</span>])
+              {"\n\n"}mi_scores = mutual_info_classif(features, target){"\n"}
+              top_20 = mi_scores_sorted.iloc[:
+              <span style={{ color: C.cyan }}>20</span>]
+            </CB>
+          </Cd>
+          <Cd>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.suc,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Baseline: Logistic Regression
+            </div>
+            <CB>
+              lr = LogisticRegression(max_iter=
+              <span style={{ color: C.cyan }}>1000</span>){"\n"}lr.fit(X_train,
+              y_train){"\n\n"}
+              <span style={{ color: C.suc }}>Accuracy: 0.970</span>
+              {"\n"}
+              <span style={{ color: C.tm }}>
+                // Precision: 0.97 | Recall: 0.97
+              </span>
+              {"\n"}
+              <span style={{ color: C.tm }}>// F1: 0.97 | Support: 2497</span>
+            </CB>
+            <div style={{ marginTop: 8, fontSize: 11, color: C.tm }}>
+              Class balance: 6314 churned / 6169 retained
+            </div>
+          </Cd>
+        </div>
+      </div>
+    </div>
+  ),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="280px" t="20%" l="75%" c={C.acc} /><Tg text="Hyperparameter Tuning" /><Ti>Optimized Decision Tree Classifier</Ti><Sb>RandomizedSearchCV with 4-fold CV. Final model serialized as model.pkl.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}><Cd glow><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Training Pipeline</div><CB><span style={{ color: C.teal }}>from</span> sklearn.tree <span style={{ color: C.teal }}>import</span>{"\n"}{"  "}DecisionTreeClassifier{"\n"}<span style={{ color: C.teal }}>from</span> sklearn.model_selection <span style={{ color: C.teal }}>import</span>{"\n"}{"  "}RandomizedSearchCV{"\n\n"}param_dist = {"{"}{"\n"}{"  "}<span style={{ color: C.suc }}>"criterion"</span>: [<span style={{ color: C.suc }}>"gini","entropy","log_loss"</span>],{"\n"}{"  "}<span style={{ color: C.suc }}>"splitter"</span>: [<span style={{ color: C.suc }}>"best","random"</span>],{"\n"}{"  "}<span style={{ color: C.suc }}>"max_depth"</span>: [<span style={{ color: C.cyan }}>100,200,300,500</span>],{"\n"}{"  "}<span style={{ color: C.suc }}>"min_samples_split"</span>: [<span style={{ color: C.cyan }}>2,4,6</span>],{"\n"}{"  "}<span style={{ color: C.suc }}>"min_samples_leaf"</span>: [<span style={{ color: C.cyan }}>1,2,4</span>],{"\n"}{"  "}<span style={{ color: C.suc }}>"max_features"</span>: [<span style={{ color: C.suc }}>"auto","sqrt","log2"</span>]{"\n"}{"}"}{"\n\n"}random_search = RandomizedSearchCV({"\n"}{"  "}estimator=model, cv=<span style={{ color: C.cyan }}>4</span>,{"\n"}{"  "}param_distributions=param_dist){"\n"}random_search.fit(X_train, y_train)</CB></Cd><div><Cd style={{ marginBottom: 14 }}><div style={{ fontSize: 12, fontWeight: 600, color: C.acc, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Best Parameters</div><CB>splitter: <span style={{ color: C.suc }}>'random'</span>{"\n"}min_samples_split: <span style={{ color: C.cyan }}>6</span>{"\n"}min_samples_leaf: <span style={{ color: C.cyan }}>4</span>{"\n"}max_features: <span style={{ color: C.suc }}>'log2'</span>{"\n"}max_depth: <span style={{ color: C.cyan }}>300</span>{"\n"}criterion: <span style={{ color: C.suc }}>'log_loss'</span></CB></Cd><Cd style={{ marginBottom: 14 }}><div style={{ fontSize: 12, fontWeight: 600, color: C.suc, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Model Evaluation</div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>{[{ l: "Accuracy", v: "96.9%" }, { l: "Precision", v: "~97%" }, { l: "Recall", v: "~97%" }, { l: "F1-Score", v: "~97%" }].map((m, i) => <div key={i} style={{ textAlign: "center", padding: "10px", borderRadius: 8, background: `${C.suc}08`, border: `1px solid ${C.suc}15` }}><div style={{ fontSize: 20, fontWeight: 800, fontFamily: "Sora", color: C.suc }}>{m.v}</div><div style={{ fontSize: 10.5, color: C.ts, fontFamily: "DM Sans" }}>{m.l}</div></div>)}</div></Cd><Cd><div style={{ fontSize: 12, fontWeight: 600, color: C.teal, fontFamily: "DM Sans", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>Persistence</div><CB><span style={{ color: C.teal }}>import</span> pickle, json{"\n\n"}pickle.dump(best_model, open(<span style={{ color: C.suc }}>"model.pkl"</span>,<span style={{ color: C.suc }}>"wb"</span>)){"\n"}json.dump(X_train.columns.to_list(),{"\n"}{"  "}open(<span style={{ color: C.suc }}>"data.json"</span>,<span style={{ color: C.suc }}>"w"</span>))</CB></Cd></div></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="280px" t="20%" l="75%" c={C.acc} />
+      <Tg text="Hyperparameter Tuning" />
+      <Ti>Optimized Decision Tree Classifier</Ti>
+      <Sb>
+        RandomizedSearchCV with 4-fold CV. Final model serialized as model.pkl.
+      </Sb>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <Cd glow>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.cyan,
+              fontFamily: "DM Sans",
+              marginBottom: 10,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Training Pipeline
+          </div>
+          <CB>
+            <span style={{ color: C.teal }}>from</span> sklearn.tree{" "}
+            <span style={{ color: C.teal }}>import</span>
+            {"\n"}
+            {"  "}DecisionTreeClassifier{"\n"}
+            <span style={{ color: C.teal }}>
+              from
+            </span> sklearn.model_selection{" "}
+            <span style={{ color: C.teal }}>import</span>
+            {"\n"}
+            {"  "}RandomizedSearchCV{"\n\n"}param_dist = {"{"}
+            {"\n"}
+            {"  "}
+            <span style={{ color: C.suc }}>"criterion"</span>: [
+            <span style={{ color: C.suc }}>"gini","entropy","log_loss"</span>],
+            {"\n"}
+            {"  "}
+            <span style={{ color: C.suc }}>"splitter"</span>: [
+            <span style={{ color: C.suc }}>"best","random"</span>],{"\n"}
+            {"  "}
+            <span style={{ color: C.suc }}>"max_depth"</span>: [
+            <span style={{ color: C.cyan }}>100,200,300,500</span>],{"\n"}
+            {"  "}
+            <span style={{ color: C.suc }}>"min_samples_split"</span>: [
+            <span style={{ color: C.cyan }}>2,4,6</span>],{"\n"}
+            {"  "}
+            <span style={{ color: C.suc }}>"min_samples_leaf"</span>: [
+            <span style={{ color: C.cyan }}>1,2,4</span>],{"\n"}
+            {"  "}
+            <span style={{ color: C.suc }}>"max_features"</span>: [
+            <span style={{ color: C.suc }}>"auto","sqrt","log2"</span>]{"\n"}
+            {"}"}
+            {"\n\n"}random_search = RandomizedSearchCV({"\n"}
+            {"  "}estimator=model, cv=<span style={{ color: C.cyan }}>4</span>,
+            {"\n"}
+            {"  "}param_distributions=param_dist){"\n"}
+            random_search.fit(X_train, y_train)
+          </CB>
+        </Cd>
+        <div>
+          <Cd style={{ marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.acc,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Best Parameters
+            </div>
+            <CB>
+              splitter: <span style={{ color: C.suc }}>'random'</span>
+              {"\n"}min_samples_split: <span style={{ color: C.cyan }}>6</span>
+              {"\n"}min_samples_leaf: <span style={{ color: C.cyan }}>4</span>
+              {"\n"}max_features: <span style={{ color: C.suc }}>'log2'</span>
+              {"\n"}max_depth: <span style={{ color: C.cyan }}>300</span>
+              {"\n"}criterion: <span style={{ color: C.suc }}>'log_loss'</span>
+            </CB>
+          </Cd>
+          <Cd style={{ marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.suc,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Model Evaluation
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 10,
+              }}
+            >
+              {[
+                { l: "Accuracy", v: "96.9%" },
+                { l: "Precision", v: "~97%" },
+                { l: "Recall", v: "~97%" },
+                { l: "F1-Score", v: "~97%" },
+              ].map((m, i) => (
+                <div
+                  key={i}
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    borderRadius: 8,
+                    background: `${C.suc}08`,
+                    border: `1px solid ${C.suc}15`,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 800,
+                      fontFamily: "Sora",
+                      color: C.suc,
+                    }}
+                  >
+                    {m.v}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 10.5,
+                      color: C.ts,
+                      fontFamily: "DM Sans",
+                    }}
+                  >
+                    {m.l}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Cd>
+          <Cd>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.teal,
+                fontFamily: "DM Sans",
+                marginBottom: 8,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Persistence
+            </div>
+            <CB>
+              <span style={{ color: C.teal }}>import</span> pickle, json{"\n\n"}
+              pickle.dump(best_model, open(
+              <span style={{ color: C.suc }}>"model.pkl"</span>,
+              <span style={{ color: C.suc }}>"wb"</span>)){"\n"}
+              json.dump(X_train.columns.to_list(),{"\n"}
+              {"  "}open(<span style={{ color: C.suc }}>"data.json"</span>,
+              <span style={{ color: C.suc }}>"w"</span>))
+            </CB>
+          </Cd>
+        </div>
+      </div>
+    </div>
+  ),
 
-  SI({ number: "07", title: "Solution Architecture", subtitle: "Tech stack, project structure, and the FastAPI prediction endpoint.", icon: Layers, color: C.cyan }),
+  SI({
+    number: "07",
+    title: "Solution Architecture",
+    subtitle:
+      "Tech stack, project structure, and the FastAPI prediction endpoint.",
+    icon: Layers,
+    color: C.cyan,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="300px" t="10%" l="70%" c={C.cyan} d={0.5} /><Tg text="Deployment" /><Ti>FastAPI Prediction Interface</Ti><Sb>A lightweight REST API accepting customer data and returning real-time churn probability scores.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}><Cd glow><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>app.py Core Endpoint</div><CB>app = FastAPI(title=<span style={{ color: C.suc }}>"Reder API"</span>){"\n\n"}<span style={{ color: C.acc }}>class</span> <span style={{ color: C.cyan }}>PredictionRequest</span>(BaseModel):{"\n"}{"  "}records: List[Dict[str, Any]]{"\n\n"}@app.post(<span style={{ color: C.suc }}>'/predict'</span>){"\n"}<span style={{ color: C.acc }}>def</span> <span style={{ color: C.cyan }}>model_predict</span>(req):{"\n"}{"  "}df = pd.DataFrame(req.records){"\n"}{"  "}model, features = load_model(){"\n"}{"  "}df = df.reindex({"\n"}{"    "}columns=features, fill_value=<span style={{ color: C.cyan }}>0</span>){"\n\n"}{"  "}prediction = model.predict(df){"\n"}{"  "}pred_proba ={"\n"}{"    "}model.predict_proba(df)[:,<span style={{ color: C.cyan }}>1</span>]{"\n\n"}{"  "}<span style={{ color: C.teal }}>return</span> {"{"}{"\n"}{"    "}<span style={{ color: C.suc }}>"prediction"</span>: int(prediction[<span style={{ color: C.cyan }}>0</span>]),{"\n"}{"    "}<span style={{ color: C.suc }}>"probability"</span>:{"\n"}{"      "}float(pred_proba[<span style={{ color: C.cyan }}>0</span>]){"\n"}{"  "}{"}"}{"\n\n"}uvicorn.run(<span style={{ color: C.suc }}>"app:app"</span>,{"\n"}{"  "}host=<span style={{ color: C.suc }}>"127.0.0.1"</span>, port=<span style={{ color: C.cyan }}>3000</span>)</CB></Cd><div><Cd style={{ marginBottom: 14 }}><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Tech Stack</div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>{[{ t: "Data", items: ["Python", "Pandas", "NumPy", "Jupyter"] }, { t: "ML", items: ["Scikit-learn", "Mutual Info", "Pickle"] }, { t: "API", items: ["FastAPI", "Pydantic", "Uvicorn"] }].map((s, i) => <div key={i}><div style={{ fontSize: 10, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 6, textTransform: "uppercase" }}>{s.t}</div>{s.items.map((it, j) => <Bg key={j} label={it} color={[C.teal, C.acc, C.cyan][i]} />)}</div>)}</div></Cd><Cd style={{ marginBottom: 14 }}><div style={{ fontSize: 12, fontWeight: 600, color: C.cyan, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>How It Works</div><IR icon={Server} title="FastAPI + Uvicorn" desc="Async ASGI server for high-throughput requests" color={C.teal} /><IR icon={Shield} title="Pydantic Validation" desc="Strict schema validation on every request" color={C.cyan} /><IR icon={Brain} title="Model Inference" desc="model.pkl loaded at startup; ms predictions" color={C.acc} /></Cd><Cd><div style={{ fontSize: 12, fontWeight: 600, color: C.teal, fontFamily: "DM Sans", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>Project Structure</div><div style={{ fontFamily: "JetBrains Mono", fontSize: 10.5, lineHeight: 1.7, color: C.ts }}>{["source-data/ \u2192 Raw CSV", "preprocessing/clean.ipynb \u2192 Cleaning", "model/model.ipynb \u2192 Training", "model/model.pkl \u2192 Saved model", "app.py \u2192 FastAPI endpoint", "requirements.txt \u2192 Dependencies"].map((l, i) => <div key={i}><span style={{ color: C.cyan }}>{"\uD83D\uDCC4"}</span> {l}</div>)}</div></Cd></div></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="300px" t="10%" l="70%" c={C.cyan} d={0.5} />
+      <Tg text="Deployment" />
+      <Ti>FastAPI Prediction Interface</Ti>
+      <Sb>
+        A lightweight REST API accepting customer data and returning real-time
+        churn probability scores.
+      </Sb>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        <Cd glow>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.cyan,
+              fontFamily: "DM Sans",
+              marginBottom: 10,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            app.py Core Endpoint
+          </div>
+          <CB>
+            app = FastAPI(title=
+            <span style={{ color: C.suc }}>"Reder API"</span>){"\n\n"}
+            <span style={{ color: C.acc }}>class</span>{" "}
+            <span style={{ color: C.cyan }}>PredictionRequest</span>(BaseModel):
+            {"\n"}
+            {"  "}records: List[Dict[str, Any]]{"\n\n"}@app.post(
+            <span style={{ color: C.suc }}>'/predict'</span>){"\n"}
+            <span style={{ color: C.acc }}>def</span>{" "}
+            <span style={{ color: C.cyan }}>model_predict</span>(req):{"\n"}
+            {"  "}df = pd.DataFrame(req.records){"\n"}
+            {"  "}model, features = load_model(){"\n"}
+            {"  "}df = df.reindex({"\n"}
+            {"    "}columns=features, fill_value=
+            <span style={{ color: C.cyan }}>0</span>){"\n\n"}
+            {"  "}prediction = model.predict(df){"\n"}
+            {"  "}pred_proba ={"\n"}
+            {"    "}model.predict_proba(df)[:,
+            <span style={{ color: C.cyan }}>1</span>]{"\n\n"}
+            {"  "}
+            <span style={{ color: C.teal }}>return</span> {"{"}
+            {"\n"}
+            {"    "}
+            <span style={{ color: C.suc }}>"prediction"</span>: int(prediction[
+            <span style={{ color: C.cyan }}>0</span>]),{"\n"}
+            {"    "}
+            <span style={{ color: C.suc }}>"probability"</span>:{"\n"}
+            {"      "}float(pred_proba[<span style={{ color: C.cyan }}>0</span>
+            ]){"\n"}
+            {"  "}
+            {"}"}
+            {"\n\n"}uvicorn.run(<span style={{ color: C.suc }}>"app:app"</span>,
+            {"\n"}
+            {"  "}host=<span style={{ color: C.suc }}>"127.0.0.1"</span>, port=
+            <span style={{ color: C.cyan }}>3000</span>)
+          </CB>
+        </Cd>
+        <div>
+          <Cd style={{ marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.cyan,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Tech Stack
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                gap: 8,
+              }}
+            >
+              {[
+                { t: "Data", items: ["Python", "Pandas", "NumPy", "Jupyter"] },
+                { t: "ML", items: ["Scikit-learn", "Mutual Info", "Pickle"] },
+                { t: "API", items: ["FastAPI", "Pydantic", "Uvicorn"] },
+              ].map((s, i) => (
+                <div key={i}>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color: C.cyan,
+                      fontFamily: "DM Sans",
+                      marginBottom: 6,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {s.t}
+                  </div>
+                  {s.items.map((it, j) => (
+                    <Bg key={j} label={it} color={[C.teal, C.acc, C.cyan][i]} />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </Cd>
+          <Cd style={{ marginBottom: 14 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.cyan,
+                fontFamily: "DM Sans",
+                marginBottom: 10,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              How It Works
+            </div>
+            <IR
+              icon={Server}
+              title="FastAPI + Uvicorn"
+              desc="Async ASGI server for high-throughput requests"
+              color={C.teal}
+            />
+            <IR
+              icon={Shield}
+              title="Pydantic Validation"
+              desc="Strict schema validation on every request"
+              color={C.cyan}
+            />
+            <IR
+              icon={Brain}
+              title="Model Inference"
+              desc="model.pkl loaded at startup; ms predictions"
+              color={C.acc}
+            />
+          </Cd>
+          <Cd>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: C.teal,
+                fontFamily: "DM Sans",
+                marginBottom: 8,
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Project Structure
+            </div>
+            <div
+              style={{
+                fontFamily: "JetBrains Mono",
+                fontSize: 10.5,
+                lineHeight: 1.7,
+                color: C.ts,
+              }}
+            >
+              {[
+                "source-data/ \u2192 Raw CSV",
+                "preprocessing/clean.ipynb \u2192 Cleaning",
+                "model/model.ipynb \u2192 Training",
+                "model/model.pkl \u2192 Saved model",
+                "app.py \u2192 FastAPI endpoint",
+                "requirements.txt \u2192 Dependencies",
+              ].map((l, i) => (
+                <div key={i}>
+                  <span style={{ color: C.cyan }}>{"\uD83D\uDCC4"}</span> {l}
+                </div>
+              ))}
+            </div>
+          </Cd>
+        </div>
+      </div>
+    </div>
+  ),
 
-  SI({ number: "08", title: "Cloud Deployment Costs", subtitle: "Estimated infrastructure costs for deploying on AWS, Azure, and GCP.", icon: Cloud, color: C.acc }),
+  SI({
+    number: "08",
+    title: "Cloud Deployment Costs",
+    subtitle:
+      "Estimated infrastructure costs for deploying on AWS, Azure, and GCP.",
+    icon: Cloud,
+    color: C.acc,
+  }),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="300px" t="20%" l="75%" c={C.acc} /><Tg text="Infrastructure Costs" /><Ti>AWS vs Azure vs GCP</Ti><Sb>Monthly estimated costs for a lightweight FastAPI + ML model deployment (CPU-only Decision Tree inference).</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginBottom: 16 }}>{[{ name: "AWS", color: C.acc, items: [{ l: "EC2 t3.medium", v: "$30-34/mo" }, { l: "ECS Fargate (0.5vCPU)", v: "$18-25/mo" }, { l: "S3 Storage", v: "$1-3/mo" }, { l: "CloudWatch", v: "$5-10/mo" }, { l: "Load Balancer", v: "$18-22/mo" }, { l: "Data Transfer", v: "$1-2/mo" }], total: "$55-95/mo", pros: ["Largest ecosystem & community", "Most mature ML tooling", "Broadest region coverage"], cons: ["Complex pricing structure", "Data egress fees add up", "Steeper learning curve"] }, { name: "Azure", color: C.teal, items: [{ l: "App Service B1 / VM B2s", v: "$13-35/mo" }, { l: "Container Instance", v: "$15-22/mo" }, { l: "Blob Storage", v: "$1-3/mo" }, { l: "Azure Monitor", v: "$5-8/mo" }, { l: "App Gateway", v: "$20-25/mo" }, { l: "Data Transfer", v: "$1-2/mo" }], total: "$45-90/mo", pros: ["Best Microsoft integration", "Hybrid Benefit saves 40%", "Strong compliance tooling"], cons: ["SKU complexity", "Less intuitive console", "Fewer serverless ML options"] }, { name: "GCP", color: C.cyan, items: [{ l: "Cloud Run (0.5vCPU)", v: "$8-18/mo" }, { l: "Compute Engine e2-med", v: "$25-30/mo" }, { l: "Cloud Storage", v: "$1-2/mo" }, { l: "Cloud Monitoring", v: "$0-5/mo" }, { l: "Cloud Load Balancing", v: "$18-20/mo" }, { l: "Data Transfer", v: "$1-2/mo" }], total: "$30-75/mo", pros: ["Cloud Run = pay per request", "Auto sustained-use discounts", "Best for containers & AI"], cons: ["Smaller enterprise footprint", "Fewer regions", "Higher learning curve"] }].map((p, i) => <Cd key={i} glow style={{ padding: "18px" }}><div style={{ fontSize: 16, fontWeight: 700, color: p.color, fontFamily: "Sora", marginBottom: 12 }}>{p.name}</div>{p.items.map((it, j) => <div key={j} style={{ display: "flex", justifyContent: "space-between", padding: "4px 0", borderBottom: j < p.items.length - 1 ? `1px solid ${C.cbr}` : "none" }}><span style={{ fontSize: 10.5, color: C.ts, fontFamily: "DM Sans" }}>{it.l}</span><span style={{ fontSize: 10.5, color: p.color, fontWeight: 600, fontFamily: "JetBrains Mono" }}>{it.v}</span></div>)}<div style={{ marginTop: 10, padding: "8px 12px", borderRadius: 8, background: `${p.color}10`, textAlign: "center" }}><span style={{ fontSize: 18, fontWeight: 800, fontFamily: "Sora", color: p.color }}>{p.total}</span><div style={{ fontSize: 9, color: C.tm }}>Estimated Monthly</div></div><div style={{ marginTop: 10 }}><div style={{ fontSize: 9, fontWeight: 600, color: C.suc, marginBottom: 4 }}>PROS</div>{p.pros.map((x, j) => <div key={j} style={{ fontSize: 10, color: C.ts, display: "flex", gap: 4, marginBottom: 2 }}><span style={{ color: C.suc }}>{"\u2713"}</span> {x}</div>)}<div style={{ fontSize: 9, fontWeight: 600, color: C.dng, marginTop: 6, marginBottom: 4 }}>CONS</div>{p.cons.map((x, j) => <div key={j} style={{ fontSize: 10, color: C.ts, display: "flex", gap: 4, marginBottom: 2 }}><span style={{ color: C.dng }}>{"\u2717"}</span> {x}</div>)}</div></Cd>)}</div><Cd style={{ background: `${C.acc}08`, borderColor: `${C.acc}25` }}><div style={{ display: "flex", alignItems: "center", gap: 10 }}><Zap size={16} color={C.acc} /><span style={{ fontSize: 12, color: C.tp, fontFamily: "DM Sans" }}><strong>Recommendation:</strong> For this POC, <span style={{ color: C.cyan, fontWeight: 700 }}>GCP Cloud Run</span> offers the lowest cost (~$30-75/mo) with pay-per-request scaling. For enterprise integration, <span style={{ color: C.teal, fontWeight: 700 }}>Azure App Service</span> is ideal. For max flexibility, <span style={{ color: C.acc, fontWeight: 700 }}>AWS ECS Fargate</span> provides the best balance.</span></div></Cd></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="300px" t="20%" l="75%" c={C.acc} />
+      <Tg text="Infrastructure Costs" />
+      <Ti>AWS vs Azure vs GCP</Ti>
+      <Sb>
+        Monthly estimated costs for a lightweight FastAPI + ML model deployment
+        (CPU-only Decision Tree inference).
+      </Sb>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gap: 14,
+          marginBottom: 16,
+        }}
+      >
+        {[
+          {
+            name: "AWS",
+            color: C.acc,
+            items: [
+              { l: "EC2 t3.medium", v: "$30-34/mo" },
+              { l: "ECS Fargate (0.5vCPU)", v: "$18-25/mo" },
+              { l: "S3 Storage", v: "$1-3/mo" },
+              { l: "CloudWatch", v: "$5-10/mo" },
+              { l: "Load Balancer", v: "$18-22/mo" },
+              { l: "Data Transfer", v: "$1-2/mo" },
+            ],
+            total: "$55-95/mo",
+            pros: [
+              "Largest ecosystem & community",
+              "Most mature ML tooling",
+              "Broadest region coverage",
+            ],
+            cons: [
+              "Complex pricing structure",
+              "Data egress fees add up",
+              "Steeper learning curve",
+            ],
+          },
+          {
+            name: "Azure",
+            color: C.teal,
+            items: [
+              { l: "App Service B1 / VM B2s", v: "$13-35/mo" },
+              { l: "Container Instance", v: "$15-22/mo" },
+              { l: "Blob Storage", v: "$1-3/mo" },
+              { l: "Azure Monitor", v: "$5-8/mo" },
+              { l: "App Gateway", v: "$20-25/mo" },
+              { l: "Data Transfer", v: "$1-2/mo" },
+            ],
+            total: "$45-90/mo",
+            pros: [
+              "Best Microsoft integration",
+              "Hybrid Benefit saves 40%",
+              "Strong compliance tooling",
+            ],
+            cons: [
+              "SKU complexity",
+              "Less intuitive console",
+              "Fewer serverless ML options",
+            ],
+          },
+          {
+            name: "GCP",
+            color: C.cyan,
+            items: [
+              { l: "Cloud Run (0.5vCPU)", v: "$8-18/mo" },
+              { l: "Compute Engine e2-med", v: "$25-30/mo" },
+              { l: "Cloud Storage", v: "$1-2/mo" },
+              { l: "Cloud Monitoring", v: "$0-5/mo" },
+              { l: "Cloud Load Balancing", v: "$18-20/mo" },
+              { l: "Data Transfer", v: "$1-2/mo" },
+            ],
+            total: "$30-75/mo",
+            pros: [
+              "Cloud Run = pay per request",
+              "Auto sustained-use discounts",
+              "Best for containers & AI",
+            ],
+            cons: [
+              "Smaller enterprise footprint",
+              "Fewer regions",
+              "Higher learning curve",
+            ],
+          },
+        ].map((p, i) => (
+          <Cd key={i} glow style={{ padding: "18px" }}>
+            <div
+              style={{
+                fontSize: 16,
+                fontWeight: 700,
+                color: p.color,
+                fontFamily: "Sora",
+                marginBottom: 12,
+              }}
+            >
+              {p.name}
+            </div>
+            {p.items.map((it, j) => (
+              <div
+                key={j}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "4px 0",
+                  borderBottom:
+                    j < p.items.length - 1 ? `1px solid ${C.cbr}` : "none",
+                }}
+              >
+                <span
+                  style={{ fontSize: 10.5, color: C.ts, fontFamily: "DM Sans" }}
+                >
+                  {it.l}
+                </span>
+                <span
+                  style={{
+                    fontSize: 10.5,
+                    color: p.color,
+                    fontWeight: 600,
+                    fontFamily: "JetBrains Mono",
+                  }}
+                >
+                  {it.v}
+                </span>
+              </div>
+            ))}
+            <div
+              style={{
+                marginTop: 10,
+                padding: "8px 12px",
+                borderRadius: 8,
+                background: `${p.color}10`,
+                textAlign: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 18,
+                  fontWeight: 800,
+                  fontFamily: "Sora",
+                  color: p.color,
+                }}
+              >
+                {p.total}
+              </span>
+              <div style={{ fontSize: 9, color: C.tm }}>Estimated Monthly</div>
+            </div>
+            <div style={{ marginTop: 10 }}>
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 600,
+                  color: C.suc,
+                  marginBottom: 4,
+                }}
+              >
+                PROS
+              </div>
+              {p.pros.map((x, j) => (
+                <div
+                  key={j}
+                  style={{
+                    fontSize: 10,
+                    color: C.ts,
+                    display: "flex",
+                    gap: 4,
+                    marginBottom: 2,
+                  }}
+                >
+                  <span style={{ color: C.suc }}>{"\u2713"}</span> {x}
+                </div>
+              ))}
+              <div
+                style={{
+                  fontSize: 9,
+                  fontWeight: 600,
+                  color: C.dng,
+                  marginTop: 6,
+                  marginBottom: 4,
+                }}
+              >
+                CONS
+              </div>
+              {p.cons.map((x, j) => (
+                <div
+                  key={j}
+                  style={{
+                    fontSize: 10,
+                    color: C.ts,
+                    display: "flex",
+                    gap: 4,
+                    marginBottom: 2,
+                  }}
+                >
+                  <span style={{ color: C.dng }}>{"\u2717"}</span> {x}
+                </div>
+              ))}
+            </div>
+          </Cd>
+        ))}
+      </div>
+      <Cd style={{ background: `${C.acc}08`, borderColor: `${C.acc}25` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Zap size={16} color={C.acc} />
+          <span style={{ fontSize: 12, color: C.tp, fontFamily: "DM Sans" }}>
+            <strong>Recommendation:</strong> For this POC,{" "}
+            <span style={{ color: C.cyan, fontWeight: 700 }}>
+              GCP Cloud Run
+            </span>{" "}
+            offers the lowest cost (~$30-75/mo) with pay-per-request scaling.
+            For enterprise integration,{" "}
+            <span style={{ color: C.teal, fontWeight: 700 }}>
+              Azure App Service
+            </span>{" "}
+            is ideal. For max flexibility,{" "}
+            <span style={{ color: C.acc, fontWeight: 700 }}>
+              AWS ECS Fargate
+            </span>{" "}
+            provides the best balance.
+          </span>
+        </div>
+      </Cd>
+    </div>
+  ),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="300px" t="20%" l="75%" c={C.suc} /><Tg text="Business Impact" /><Ti>Expected Outcomes & ROI</Ti><Sb>Measurable improvements projected over the next 12 months.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 14, marginBottom: 20 }}>{[{ icon: TrendingDown, value: "10%", label: "Churn Reduction", c: C.suc }, { icon: DollarSign, value: "\u2191 CLV", label: "Revenue Growth", c: C.acc }, { icon: Target, value: "\u2191 ROI", label: "Marketing Efficiency", c: C.teal }, { icon: Users, value: "\u2191 NPS", label: "Customer Satisfaction", c: C.cyan }].map((it, i) => <Cd key={i} glow style={{ textAlign: "center", padding: "18px 12px" }}><it.icon size={20} color={it.c} /><div style={{ fontSize: 26, fontWeight: 800, fontFamily: "Sora", color: it.c, marginTop: 6 }}>{it.value}</div><div style={{ fontSize: 11, fontWeight: 600, color: C.tp, fontFamily: "DM Sans", marginTop: 4 }}>{it.label}</div></Cd>)}</div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}><Cd><div style={{ fontSize: 12, fontWeight: 600, color: C.dng, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>Before (Reactive)</div>{["Broad, untargeted marketing spend", "Churn detected only after customer leaves", "Aggregate reporting with no segmentation", "One-size-fits-all retention offers"].map((it, i) => <div key={i} style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 7 }}><span style={{ color: C.dng, fontSize: 13 }}>{"\u2717"}</span><span style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}>{it}</span></div>)}</Cd><Cd style={{ borderColor: `${C.suc}30` }}><div style={{ fontSize: 12, fontWeight: 600, color: C.suc, fontFamily: "DM Sans", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>After (Proactive)</div>{["Targeted campaigns for at-risk segments", "Early warning system flags churn probability", "Per-customer churn scores with 97% accuracy", "Personalized retention strategies per user"].map((it, i) => <div key={i} style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 7 }}><CheckCircle size={13} color={C.suc} /><span style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}>{it}</span></div>)}</Cd></div></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="300px" t="20%" l="75%" c={C.suc} />
+      <Tg text="Business Impact" />
+      <Ti>Expected Outcomes & ROI</Ti>
+      <Sb>Measurable improvements projected over the next 12 months.</Sb>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr 1fr",
+          gap: 14,
+          marginBottom: 20,
+        }}
+      >
+        {[
+          {
+            icon: TrendingDown,
+            value: "10%",
+            label: "Churn Reduction",
+            c: C.suc,
+          },
+          {
+            icon: DollarSign,
+            value: "\u2191 CLV",
+            label: "Revenue Growth",
+            c: C.acc,
+          },
+          {
+            icon: Target,
+            value: "\u2191 ROI",
+            label: "Marketing Efficiency",
+            c: C.teal,
+          },
+          {
+            icon: Users,
+            value: "\u2191 NPS",
+            label: "Customer Satisfaction",
+            c: C.cyan,
+          },
+        ].map((it, i) => (
+          <Cd
+            key={i}
+            glow
+            style={{ textAlign: "center", padding: "18px 12px" }}
+          >
+            <it.icon size={20} color={it.c} />
+            <div
+              style={{
+                fontSize: 26,
+                fontWeight: 800,
+                fontFamily: "Sora",
+                color: it.c,
+                marginTop: 6,
+              }}
+            >
+              {it.value}
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: C.tp,
+                fontFamily: "DM Sans",
+                marginTop: 4,
+              }}
+            >
+              {it.label}
+            </div>
+          </Cd>
+        ))}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+        <Cd>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.dng,
+              fontFamily: "DM Sans",
+              marginBottom: 10,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            Before (Reactive)
+          </div>
+          {[
+            "Broad, untargeted marketing spend",
+            "Churn detected only after customer leaves",
+            "Aggregate reporting with no segmentation",
+            "One-size-fits-all retention offers",
+          ].map((it, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                gap: 8,
+                alignItems: "center",
+                marginBottom: 7,
+              }}
+            >
+              <span style={{ color: C.dng, fontSize: 13 }}>{"\u2717"}</span>
+              <span
+                style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}
+              >
+                {it}
+              </span>
+            </div>
+          ))}
+        </Cd>
+        <Cd style={{ borderColor: `${C.suc}30` }}>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.suc,
+              fontFamily: "DM Sans",
+              marginBottom: 10,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+            }}
+          >
+            After (Proactive)
+          </div>
+          {[
+            "Targeted campaigns for at-risk segments",
+            "Early warning system flags churn probability",
+            "Per-customer churn scores with 97% accuracy",
+            "Personalized retention strategies per user",
+          ].map((it, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                gap: 8,
+                alignItems: "center",
+                marginBottom: 7,
+              }}
+            >
+              <CheckCircle size={13} color={C.suc} />
+              <span
+                style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}
+              >
+                {it}
+              </span>
+            </div>
+          ))}
+        </Cd>
+      </div>
+    </div>
+  ),
 
-  () => (<div style={{ padding: "16px 0", position: "relative" }}><Glow s="280px" t="30%" l="80%" c={C.teal} d={1} /><Tg text="Roadmap" /><Ti>Next Steps</Ti><Sb>A phased approach from proof-of-concept to full production deployment.</Sb><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginBottom: 20 }}>{[{ p: "Phase 1", t: "Validation", tl: "Month 1-2", c: C.teal, items: ["Validate with live data", "A/B test retention actions", "Refine feature engineering", "Stakeholder signoff"] }, { p: "Phase 2", t: "Integration", tl: "Month 3-5", c: C.cyan, items: ["Integrate API with CRM", "Build monitoring layer", "Automate data pipelines", "Model retraining schedule"] }, { p: "Phase 3", t: "Scale", tl: "Month 6-12", c: C.mint, items: ["Full production deploy", "Real-time scoring at scale", "Expand to upsell predictions", "Measure KPI outcomes"] }].map((ph, i) => <Cd key={i} glow><div style={{ fontSize: 10, fontWeight: 700, color: ph.c, fontFamily: "Sora", textTransform: "uppercase", letterSpacing: 2, marginBottom: 3 }}>{ph.p}</div><div style={{ fontSize: 16, fontWeight: 700, color: C.tp, fontFamily: "Sora", marginBottom: 3 }}>{ph.t}</div><div style={{ fontSize: 11, color: C.tm, fontFamily: "DM Sans", marginBottom: 14 }}>{ph.tl}</div>{ph.items.map((it, j) => <div key={j} style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}><div style={{ minWidth: 5, height: 5, borderRadius: "50%", background: ph.c }} /><span style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}>{it}</span></div>)}</Cd>)}</div><Cd style={{ background: `${C.teal}08`, borderColor: `${C.teal}25` }}><div style={{ display: "flex", alignItems: "center", gap: 10 }}><ArrowRight size={18} color={C.teal} /><span style={{ fontSize: 13, color: C.tp, fontFamily: "DM Sans" }}>Long-term vision: evolve into a comprehensive customer intelligence platform with churn prediction, upsell scoring, and lifetime value optimization.</span></div></Cd></div>),
+  () => (
+    <div style={{ padding: "16px 0", position: "relative" }}>
+      <Glow s="280px" t="30%" l="80%" c={C.teal} d={1} />
+      <Tg text="Roadmap" />
+      <Ti>Next Steps</Ti>
+      <Sb>
+        A phased approach from proof-of-concept to full production deployment.
+      </Sb>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gap: 14,
+          marginBottom: 20,
+        }}
+      >
+        {[
+          {
+            p: "Phase 1",
+            t: "Validation",
+            tl: "Month 1-2",
+            c: C.teal,
+            items: [
+              "Validate with live data",
+              "A/B test retention actions",
+              "Refine feature engineering",
+              "Stakeholder signoff",
+            ],
+          },
+          {
+            p: "Phase 2",
+            t: "Integration",
+            tl: "Month 3-5",
+            c: C.cyan,
+            items: [
+              "Integrate API with CRM",
+              "Build monitoring layer",
+              "Automate data pipelines",
+              "Model retraining schedule",
+            ],
+          },
+          {
+            p: "Phase 3",
+            t: "Scale",
+            tl: "Month 6-12",
+            c: C.mint,
+            items: [
+              "Full production deploy",
+              "Real-time scoring at scale",
+              "Expand to upsell predictions",
+              "Measure KPI outcomes",
+            ],
+          },
+        ].map((ph, i) => (
+          <Cd key={i} glow>
+            <div
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                color: ph.c,
+                fontFamily: "Sora",
+                textTransform: "uppercase",
+                letterSpacing: 2,
+                marginBottom: 3,
+              }}
+            >
+              {ph.p}
+            </div>
+            <div
+              style={{
+                fontSize: 16,
+                fontWeight: 700,
+                color: C.tp,
+                fontFamily: "Sora",
+                marginBottom: 3,
+              }}
+            >
+              {ph.t}
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                color: C.tm,
+                fontFamily: "DM Sans",
+                marginBottom: 14,
+              }}
+            >
+              {ph.tl}
+            </div>
+            {ph.items.map((it, j) => (
+              <div
+                key={j}
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  alignItems: "center",
+                  marginBottom: 8,
+                }}
+              >
+                <div
+                  style={{
+                    minWidth: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    background: ph.c,
+                  }}
+                />
+                <span
+                  style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}
+                >
+                  {it}
+                </span>
+              </div>
+            ))}
+          </Cd>
+        ))}
+      </div>
+      <Cd style={{ background: `${C.teal}08`, borderColor: `${C.teal}25` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <ArrowRight size={18} color={C.teal} />
+          <span style={{ fontSize: 13, color: C.tp, fontFamily: "DM Sans" }}>
+            Long-term vision: evolve into a comprehensive customer intelligence
+            platform with churn prediction, upsell scoring, and lifetime value
+            optimization.
+          </span>
+        </div>
+      </Cd>
+    </div>
+  ),
 
-  () => (<div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%", textAlign: "center", position: "relative" }}><Glow s="400px" t="-80px" l="50%" c={C.teal} /><Glow s="250px" t="60%" l="10%" c={C.cyan} d={2} /><div style={{ position: "relative", zIndex: 1 }}><div style={{ width: 60, height: 60, borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px", background: `linear-gradient(135deg,${C.teal},${C.cyan})`, boxShadow: `0 0 40px ${C.teal}40` }}><Wifi size={30} color={C.wh} /></div><h1 style={{ fontSize: 44, fontWeight: 800, fontFamily: "Sora", marginBottom: 14, background: `linear-gradient(135deg,${C.wh} 0%,${C.cyan} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Thank You</h1><p style={{ fontSize: 16, color: C.ts, fontFamily: "DM Sans", maxWidth: 480, margin: "0 auto 30px", lineHeight: 1.6 }}>Ready to turn data into retention.<br />Let's discuss implementation.</p><div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>{[{ label: "Reder Telecommunications", icon: Wifi }, { label: "Oslo, Norway", icon: Globe }, { label: "Proof of Concept \u2014 2026", icon: Activity }].map((it, i) => <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 18px", borderRadius: 10, background: C.cb, border: `1px solid ${C.cbr}` }}><it.icon size={14} color={C.cyan} /><span style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}>{it.label}</span></div>)}</div></div></div>)
+  () => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        textAlign: "center",
+        position: "relative",
+      }}
+    >
+      <Glow s="400px" t="-80px" l="50%" c={C.teal} />
+      <Glow s="250px" t="60%" l="10%" c={C.cyan} d={2} />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <div
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: 16,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 24px",
+            background: `linear-gradient(135deg,${C.teal},${C.cyan})`,
+            boxShadow: `0 0 40px ${C.teal}40`,
+          }}
+        >
+          <Wifi size={30} color={C.wh} />
+        </div>
+        <h1
+          style={{
+            fontSize: 44,
+            fontWeight: 800,
+            fontFamily: "Sora",
+            marginBottom: 14,
+            background: `linear-gradient(135deg,${C.wh} 0%,${C.cyan} 100%)`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Thank You
+        </h1>
+        <p
+          style={{
+            fontSize: 16,
+            color: C.ts,
+            fontFamily: "DM Sans",
+            maxWidth: 480,
+            margin: "0 auto 30px",
+            lineHeight: 1.6,
+          }}
+        >
+          Ready to turn data into retention.
+          <br />
+          Let's discuss implementation.
+        </p>
+        <div
+          style={{
+            display: "flex",
+            gap: 14,
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          {[
+            { label: "Reder Telecommunications", icon: Wifi },
+            { label: "Oslo, Norway", icon: Globe },
+            { label: "Proof of Concept \u2014 2026", icon: Activity },
+          ].map((it, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "9px 18px",
+                borderRadius: 10,
+                background: C.cb,
+                border: `1px solid ${C.cbr}`,
+              }}
+            >
+              <it.icon size={14} color={C.cyan} />
+              <span
+                style={{ fontSize: 12, color: C.ts, fontFamily: "DM Sans" }}
+              >
+                {it.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
 ];
 
 export default function Presentation() {
-  const [cur, setCur] = useState(0); const total = slides.length;
-  const goN = useCallback(() => setCur(s => Math.min(s + 1, total - 1)), [total]);
-  const goP = useCallback(() => setCur(s => Math.max(s - 1, 0)), []);
-  useEffect(() => { const h = e => { if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); goN() } if (e.key === "ArrowLeft") { e.preventDefault(); goP() } }; window.addEventListener("keydown", h); return () => window.removeEventListener("keydown", h) }, [goN, goP]);
+  const [cur, setCur] = useState(0);
+  const total = slides.length;
+  const goN = useCallback(
+    () => setCur((s) => Math.min(s + 1, total - 1)),
+    [total],
+  );
+  const goP = useCallback(() => setCur((s) => Math.max(s - 1, 0)), []);
+  useEffect(() => {
+    const h = (e) => {
+      if (e.key === "ArrowRight" || e.key === " ") {
+        e.preventDefault();
+        goN();
+      }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        goP();
+      }
+    };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [goN, goP]);
   const S = slides[cur];
-  return (<div style={{ width: "100%", minHeight: "100vh", background: `linear-gradient(170deg,${C.navy} 0%,#061428 50%,${C.deepBlue} 100%)`, fontFamily: "DM Sans,sans-serif", color: C.tp, overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}><style>{`@keyframes pg{0%{opacity:.3;transform:scale(1)}100%{opacity:.6;transform:scale(1.1)}}@keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}::selection{background:${C.teal}40}`}</style><div style={{ width: "100%", maxWidth: "100%", padding: "28px 60px", minHeight: "100vh", position: "relative", animation: "fi 0.35s ease" }} key={cur}><Grid /><div style={{ position: "relative", zIndex: 1, height: "100%" }}><S /></div></div><div style={{ display: "flex", alignItems: "center", gap: 18, padding: "14px 28px", background: "rgba(11,29,58,0.8)", backdropFilter: "blur(12px)", borderRadius: 14, border: `1px solid ${C.cbr}`, marginTop: 6 }}><button onClick={goP} disabled={cur === 0} style={{ width: 34, height: 34, borderRadius: 8, border: "none", cursor: cur === 0 ? "default" : "pointer", background: cur === 0 ? C.ls + "40" : C.teal + "20", color: cur === 0 ? C.tm : C.cyan, display: "flex", alignItems: "center", justifyContent: "center" }}><ChevronLeft size={17} /></button><div style={{ display: "flex", gap: 5 }}>{slides.map((_, i) => <button key={i} onClick={() => setCur(i)} style={{ width: i === cur ? 22 : 7, height: 7, borderRadius: 4, border: "none", cursor: "pointer", transition: "all 0.3s ease", background: i === cur ? C.teal : C.ls }} />)}</div><button onClick={goN} disabled={cur === total - 1} style={{ width: 34, height: 34, borderRadius: 8, border: "none", cursor: cur === total - 1 ? "default" : "pointer", background: cur === total - 1 ? C.ls + "40" : C.teal + "20", color: cur === total - 1 ? C.tm : C.cyan, display: "flex", alignItems: "center", justifyContent: "center" }}><ChevronRight size={17} /></button><span style={{ fontSize: 11, color: C.tm, fontFamily: "Sora", fontWeight: 500, marginLeft: 4 }}>{cur + 1} / {total}</span></div></div>);
+  return (
+    <div
+      style={{
+        width: "100%",
+        minHeight: "100vh",
+        background: `linear-gradient(170deg,${C.navy} 0%,#061428 50%,${C.deepBlue} 100%)`,
+        fontFamily: "DM Sans,sans-serif",
+        color: C.tp,
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <style>{`@keyframes pg{0%{opacity:.3;transform:scale(1)}100%{opacity:.6;transform:scale(1.1)}}@keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}::selection{background:${C.teal}40}`}</style>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "100%",
+          padding: "28px 60px",
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          position: "relative",
+          animation: "fi 0.35s ease",
+        }}
+        key={cur}
+      >
+        <Grid />
+        <div style={{ position: "relative", zIndex: 1, height: "100%" }}>
+          <S />
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 18,
+          padding: "14px 28px",
+          background: "rgba(11,29,58,0.8)",
+          backdropFilter: "blur(12px)",
+          borderRadius: 14,
+          border: `1px solid ${C.cbr}`,
+          marginTop: 6,
+        }}
+      >
+        <button
+          onClick={goP}
+          disabled={cur === 0}
+          style={{
+            width: 34,
+            height: 34,
+            borderRadius: 8,
+            border: "none",
+            cursor: cur === 0 ? "default" : "pointer",
+            background: cur === 0 ? C.ls + "40" : C.teal + "20",
+            color: cur === 0 ? C.tm : C.cyan,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ChevronLeft size={17} />
+        </button>
+        <div style={{ display: "flex", gap: 5 }}>
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCur(i)}
+              style={{
+                width: i === cur ? 22 : 7,
+                height: 7,
+                borderRadius: 4,
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                background: i === cur ? C.teal : C.ls,
+              }}
+            />
+          ))}
+        </div>
+        <button
+          onClick={goN}
+          disabled={cur === total - 1}
+          style={{
+            width: 34,
+            height: 34,
+            borderRadius: 8,
+            border: "none",
+            cursor: cur === total - 1 ? "default" : "pointer",
+            background: cur === total - 1 ? C.ls + "40" : C.teal + "20",
+            color: cur === total - 1 ? C.tm : C.cyan,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ChevronRight size={17} />
+        </button>
+        <span
+          style={{
+            fontSize: 11,
+            color: C.tm,
+            fontFamily: "Sora",
+            fontWeight: 500,
+            marginLeft: 4,
+          }}
+        >
+          {cur + 1} / {total}
+        </span>
+      </div>
+    </div>
+  );
 }
