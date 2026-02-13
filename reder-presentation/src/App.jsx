@@ -466,7 +466,6 @@ const slides = [
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 14,
-          maxWidth: 800,
         }}
       >
         {[
@@ -1231,15 +1230,15 @@ const slides = [
             </div>
             <CB>
               <span style={{ color: C.tm }}>
-                // normalize_column() handles:
+                {"// normalize_column() handles:"}
               </span>
               {"\n"}
               <span style={{ color: C.tm }}>
-                // list[dict] -&gt; explode + json_normalize
+                {"// list[dict] -> explode + json_normalize"}
               </span>
               {"\n"}
               <span style={{ color: C.tm }}>
-                // dict -&gt; json_normalize directly
+                {"// dict -> json_normalize directly"}
               </span>
               {"\n\n"}sub_details = normalize_column({"\n"}
               {"  "}customer_data,{" "}
@@ -1248,7 +1247,7 @@ const slides = [
               {"  "}customer_data,{" "}
               <span style={{ color: C.suc }}>"ServiceInteractions"</span>){"\n"}
               <span style={{ color: C.tm }}>
-                // ... + 6 more nested columns
+                {"// ... + 6 more nested columns"}
               </span>
               {"\n\n"}customer_main = demographic_features{"\n"}
               {"  "}.merge(purchase_hist, on=
@@ -1256,7 +1255,9 @@ const slides = [
               {"  "}.merge(sub_details, on=
               <span style={{ color: C.suc }}>'CustomerID'</span>){"\n"}
               {"  "}
-              <span style={{ color: C.tm }}>// ... chain 8 merges total</span>
+              <span style={{ color: C.tm }}>
+                {"// ... chain 8 merges total"}
+              </span>
             </CB>
           </Cd>
           <Cd>
@@ -1274,20 +1275,20 @@ const slides = [
               Encoding Strategy
             </div>
             <CB>
-              <span style={{ color: C.tm }}>// OneHot -&gt; nominal</span>
+              <span style={{ color: C.tm }}>{"// OneHot -> nominal"}</span>
               {"\n"}[
               <span style={{ color: C.suc }}>
                 'Gender','Segment','nps_category'
               </span>
               ]{"\n\n"}
-              <span style={{ color: C.tm }}>// Label -&gt; ordinal</span>
+              <span style={{ color: C.tm }}>{"// Label -> ordinal"}</span>
               {"\n"}[
               <span style={{ color: C.suc }}>
                 'age_group','customer_segment'
               </span>
               ]{"\n\n"}
               <span style={{ color: C.tm }}>
-                // Target Encoding -&gt; cardinal
+                {"// Target Encoding -> cardinal"}
               </span>
               {"\n"}groupby(col)[
               <span style={{ color: C.suc }}>'total_purchase_value'</span>]
@@ -1295,7 +1296,7 @@ const slides = [
               {"  "}.transform(<span style={{ color: C.suc }}>'mean'</span>)
               {"\n\n"}
               <span style={{ color: C.tm }}>
-                // Output: 12,483 rows x 55 cols
+                {"// Output: 12,483 rows x 55 cols"}
               </span>
             </CB>
           </Cd>
@@ -1315,19 +1316,21 @@ const slides = [
             RFM Analysis
           </div>
           <CB style={{ marginBottom: 14 }}>
-            <span style={{ color: C.tm }}>// Recency, Frequency, Monetary</span>
+            <span style={{ color: C.tm }}>
+              {"// Recency, Frequency, Monetary"}
+            </span>
             {"\n"}present_date = customer_main{"\n"}
             {"  "}["last_interaction_date"].max(){"\n\n"}recency = present_date
             - last_interaction{"\n"}frequency = total_frequency * Logins{"\n"}
             monetary = total_purchase_value{"\n\n"}
-            <span style={{ color: C.tm }}>// Quintile binning (1-5)</span>
+            <span style={{ color: C.tm }}>{"// Quintile binning (1-5)"}</span>
             {"\n"}R_label = range(
             <span style={{ color: C.cyan }}>5, 0, -1</span>){"\n"}F_label =
             range(<span style={{ color: C.cyan }}>1, 6</span>){"\n"}M_label =
             range(<span style={{ color: C.cyan }}>1, 6</span>){"\n\n"}
             pd.qcut(recency, <span style={{ color: C.cyan }}>5</span>,
             labels=R_label){"\n"}RFM_Score = R + F + M{"\n\n"}
-            <span style={{ color: C.tm }}>// Segment customers</span>
+            <span style={{ color: C.tm }}>{"// Segment customers"}</span>
             {"\n"}bins = [<span style={{ color: C.cyan }}>1, 4, 10, 15</span>]
             {"\n"}labels = [
             <span style={{ color: C.suc }}>'risk','engaged','loyalist'</span>]
@@ -1488,10 +1491,12 @@ const slides = [
               <span style={{ color: C.suc }}>Accuracy: 0.970</span>
               {"\n"}
               <span style={{ color: C.tm }}>
-                // Precision: 0.97 | Recall: 0.97
+                {"// Precision: 0.97 | Recall: 0.97"}
               </span>
               {"\n"}
-              <span style={{ color: C.tm }}>// F1: 0.97 | Support: 2497</span>
+              <span style={{ color: C.tm }}>
+                {"// F1: 0.97 | Support: 2497"}
+              </span>
             </CB>
             <div style={{ marginTop: 8, fontSize: 11, color: C.tm }}>
               Class balance: 6314 churned / 6169 retained
@@ -1665,10 +1670,10 @@ const slides = [
             <CB>
               <span style={{ color: C.teal }}>import</span> pickle, json{"\n\n"}
               pickle.dump(best_model, open(
-              <span style={{ color: C.suc }}>"model.pkl"</span>,
+              <span style={{ color: C.suc }}>"model.pkl"</span>,{" "}
               <span style={{ color: C.suc }}>"wb"</span>)){"\n"}
               json.dump(X_train.columns.to_list(),{"\n"}
-              {"  "}open(<span style={{ color: C.suc }}>"data.json"</span>,
+              {"  "}open(<span style={{ color: C.suc }}>"data.json"</span>,{" "}
               <span style={{ color: C.suc }}>"w"</span>))
             </CB>
           </Cd>
@@ -2516,15 +2521,17 @@ export default function Presentation() {
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        margin: 0,
+        padding: 0,
+        boxSizing: "border-box",
       }}
     >
-      <style>{`@keyframes pg{0%{opacity:.3;transform:scale(1)}100%{opacity:.6;transform:scale(1.1)}}@keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}::selection{background:${C.teal}40}`}</style>
+      <style>{`html,body,#root{margin:0;padding:0;width:100%;min-height:100vh;overflow-x:hidden}@keyframes pg{0%{opacity:.3;transform:scale(1)}100%{opacity:.6;transform:scale(1.1)}}@keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}::selection{background:${C.teal}40}`}</style>
       <div
         style={{
           width: "100%",
-          maxWidth: "100%",
+          maxWidth: 1400,
+          margin: "0 auto",
           padding: "28px 60px",
           flex: 1,
           display: "flex",
@@ -2532,6 +2539,7 @@ export default function Presentation() {
           justifyContent: "center",
           position: "relative",
           animation: "fi 0.35s ease",
+          boxSizing: "border-box",
         }}
         key={cur}
       >
@@ -2544,13 +2552,16 @@ export default function Presentation() {
         style={{
           display: "flex",
           alignItems: "center",
+          justifyContent: "center",
           gap: 18,
           padding: "14px 28px",
           background: "rgba(11,29,58,0.8)",
           backdropFilter: "blur(12px)",
           borderRadius: 14,
           border: `1px solid ${C.cbr}`,
-          marginTop: 6,
+          marginTop: 0,
+          marginBottom: 16,
+          alignSelf: "center",
         }}
       >
         <button
